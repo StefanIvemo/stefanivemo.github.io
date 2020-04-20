@@ -4,12 +4,14 @@ title: About
 permalink: /about/
 ---
 
-Some information about you!
+I'm a solution architect working with Microsoft Azure, Microsoft 365 and AWS.
 
-### More Information
+### Certifications
 
-A place to include any other types of information that you'd like to include about yourself.
+![_config.yml]({{ site.baseurl }}/images/config.png)
+
+![_alt text]({{ site.baseurl }}/images/badges/microsoft-certified-azure-solutions-architect-expert.png)
 
 ### Contact me
 
-[email@domain.com](mailto:email@domain.com)
+[stefan@ivemo.se](mailto:stefan@ivemo.se)
