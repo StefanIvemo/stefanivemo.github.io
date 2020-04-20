@@ -7,8 +7,7 @@ permalink: /about/
 I'm a solution architect working with Microsoft Azure, Microsoft 365 and AWS.
 
 ### Certifications
-
-![_alt text]({{ site.baseurl }}/images/badges/microsoft-certified-azure-solutions-architect-expert.png =100x100)
+<img src="https://github.com/StefanIvemo/stefanivemo.github.io/blob/master/images/badges/microsoft-certified-azure-solutions-architect-expert.png" width="100" height="100">
 
 ### Contact me
 
