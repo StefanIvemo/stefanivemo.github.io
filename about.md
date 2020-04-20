@@ -8,9 +8,7 @@ I'm a solution architect working with Microsoft Azure, Microsoft 365 and AWS.
 
 ### Certifications
 
-![_config.yml]({{ site.baseurl }}/images/config.png)
-
-![_alt text]({{ site.baseurl }}/images/badges/microsoft-certified-azure-solutions-architect-expert.png)
+![_alt text]({{ site.baseurl }}/images/badges/microsoft-certified-azure-solutions-architect-expert.png =100x100)
 
 ### Contact me
 
