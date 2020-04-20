@@ -4,7 +4,7 @@ title: About
 permalink: /about/
 ---
 
-I'm a solution architect working with Microsoft Azure, Microsoft 365 and AWS.
+I'm a Solution Architect working with Microsoft Azure, Microsoft 365 and AWS.
 
 ### Certifications
 
