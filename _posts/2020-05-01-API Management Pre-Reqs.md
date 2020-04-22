@@ -25,7 +25,7 @@ The Managed Identity (User Assigned) will be used by APIM to GET Certificates fr
 
 I'm using a simple template where I only provide a location and name during deployment.
 
-````JSON
+```JSON
 {
     "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
@@ -47,7 +47,7 @@ I'm using a simple template where I only provide a location and name during depl
         }
     ]
 }
-````
+```
 
 Deploy Azure Key Vault
 -----
