@@ -3,7 +3,7 @@ layout: post
 title: Deploy APIM like a champ - Part 1 - Prerequisites
 ---
 
-I've been working a lot with Azure API Management supporting developers with the surrounding infrastructure like vNets (for APIM in vNet mode), Application Gateways, certificates, backup, custom RBAC etc. Over the years I've learned a lot of things regarding APIM, some of them undocumented or poorly documented. I want to share some of the tips and tricks I've learned in a series of posts on the topic "Deploy APIM like a champ" and this is the first part of the series.
+I've been working a lot with Azure API Management supporting developers with the surrounding infrastructure like VNets (for APIM in VNet mode), Application Gateways, certificates, backup, custom RBAC etc. Over the years I've learned a lot of things regarding APIM, some of them undocumented or poorly documented. I want to share some of the tips and tricks I've learned in a series of posts on the topic "Deploy APIM like a champ" and this is the first part of the series.
 
 Prerequisites
 ------
