@@ -25,6 +25,9 @@ The Managed Identity (User Assigned) will be used by APIM to GET Certificates fr
 
 The template to deploy the management is simple, I only provide a location and name during deployment.
 
+<!-- Place this tag where you want the button to render. -->
+<a class="github-button" href="https://github.com/stefanivemo/APIM/generate" data-size="large" aria-label="Use this template stefanivemo/APIM on GitHub">Use this template</a>
+
 {% highlight JSON %}
 {
     "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
