@@ -27,7 +27,7 @@ The template to deploy the managed identity is simple, I only provide a location
 
 <a class="github-button" href="https://github.com/StefanIvemo/APIM/generate" aria-label="Use this template StefanIvemo/APIM on GitHub">Use this template</a>
 
-<script src="http://gist-it.appspot.com/http://github.com/StefanIvemo/APIM/blob/master/Misc/KeyVault.json"></script>
+<script src="http://gist-it.appspot.com/https://github.com/StefanIvemo/APIM/blob/master/Misc/KeyVault.json"></script>
 
 {% highlight JSON %}
 {
