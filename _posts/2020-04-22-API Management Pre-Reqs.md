@@ -25,7 +25,7 @@ The Managed Identity (User Assigned) will be used by APIM to GET Certificates fr
 
 The template to deploy the managed identity is simple, I only provide a location and name during deployment.
 
-<img src="https://github.com/StefanIvemo/stefanivemo.github.io/blob/master/images/devops/azurerepos.png?raw=true" width="50" height="50">View template in Azure Repos
+<img src="https://github.com/StefanIvemo/stefanivemo.github.io/blob/master/images/devops/azurerepos.png?raw=true" width="25" height="25">View template in Azure Repos
 {% highlight JSON %}
 {
     "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
