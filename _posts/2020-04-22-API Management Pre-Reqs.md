@@ -25,8 +25,7 @@ The Managed Identity (User Assigned) will be used by APIM to GET Certificates fr
 
 The template to deploy the managed identity is simple, I only provide a location and name during deployment.
 
-
-<a class="github-button" href="https://github.com/StefanIvemo/APIM/generate" data-size="large" aria-label="Use this template StefanIvemo/APIM on GitHub">Use this template</a>
+<a class="github-button" href="https://github.com/StefanIvemo/APIM/subscription" aria-label="Watch StefanIvemo/APIM on GitHub">Watch</a>
 
 {% highlight JSON %}
 {
