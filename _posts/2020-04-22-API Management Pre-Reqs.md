@@ -23,8 +23,9 @@ Deploy Managed Identity
 
 The Managed Identity (User Assigned) will be used by APIM to GET Certificates from a Key Vault. The reason for using a User Assigned Managed Identity is that it can be reused by other Azure services as well. Later on in another part of this blog series we will use it to manage certificates for an Application Gateway using the same Managed Identity.
 
-The template to deploy the management is simple, I only provide a location and name during deployment.
+The template to deploy the managed identity is simple, I only provide a location and name during deployment.
 
+<img src="https://github.com/StefanIvemo/stefanivemo.github.io/blob/master/images/devops/azurerepos.png?raw=true" width="50" height="50">View template in Azure Repos
 {% highlight JSON %}
 {
     "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
