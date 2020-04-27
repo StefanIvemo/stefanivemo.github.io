@@ -144,3 +144,12 @@ The custom domain names I will use for my deployment are:
 Summary
 -----
 That's it! Now all prerequsites are inplace to get started with the APIM deployment, stay tuned for Part 2.
+
+<script src="https://utteranc.es/client.js"
+        repo="StefanIvemo/stefanivemo.github.io"
+        issue-term="pathname"
+        label="Comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
