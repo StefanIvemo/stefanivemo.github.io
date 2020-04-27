@@ -25,7 +25,7 @@ The Managed Identity (User Assigned) will be used by APIM to GET Certificates fr
 
 The template to deploy the managed identity is simple, I only provide a location and name during deployment.
 
-<img src="https://github.com/StefanIvemo/stefanivemo.github.io/blob/master/images/devops/azurerepos.png?raw=true">
+[<img src="https://github.com/StefanIvemo/stefanivemo.github.io/blob/master/images/devops/azurerepos.png?raw=true">](https://github.com/StefanIvemo/APIM/blob/master/Misc/KeyVault.json)
 
 {% highlight JSON %}
 {
