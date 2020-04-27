@@ -27,6 +27,8 @@ The template to deploy the managed identity is simple, I only provide a location
 
 <a class="github-button" href="https://github.com/StefanIvemo/APIM/subscription" aria-label="Watch StefanIvemo/APIM on GitHub">Watch</a>
 
+<script src="http://gist-it.appspot.com/http://github.com/StefanIvemo/APIM/blob/master/Misc/KeyVault.json"></script>
+
 {% highlight JSON %}
 {
     "$schema": "http://schema.management.azure.com/schemas/2014-04-01-preview/deploymentTemplate.json#",
