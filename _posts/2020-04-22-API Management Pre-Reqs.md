@@ -56,6 +56,8 @@ Deploy Azure Key Vault
 
 Now that we have our Managed Identity we can go ahead and create the Azure Key Vault. During deployment an Access Policy is assigned giving the Managed Identity we created Get and List permissions to both Secrets and Certificates. Certificates will be used for the Custom Domain names and secrets used by API Policys to retrieve secrets used by our APIs. Pass the ObjectID of you managed identity and your Azure AD Tenant ID to the parameters ObjectID and TenantID.
 
+<a class="github-button" href="https://github.com/StefanIvemo/APIM/generate" aria-label="Use this template StefanIvemo/APIM on GitHub">Use this template</a>
+
 {% highlight JSON %}
 {
     "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
