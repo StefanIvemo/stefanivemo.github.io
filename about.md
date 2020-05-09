@@ -4,7 +4,8 @@ title: About
 permalink: /about/
 ---
 
-I'm a Solution Architect working with Microsoft Azure, Microsoft 365 and AWS.
+My name is Stefan Ivemo and this is my cloud blog! Here you will find a mixture of things related to Microsoft Azure, Microsoft 365 and AWS. It can be anything from deployment guides, scripting to thoughts and opinions. Welcome!
+
 
 ### Certifications
 
