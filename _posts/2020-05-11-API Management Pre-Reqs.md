@@ -20,9 +20,9 @@ Let's start with the prerequisites for API Management. They're not really prereq
 
 The things we will do in Part 1 are:
 
-1. Deploy an Azure Key Vault - Used to store our SSL certificates for APIM Custom Domain Names.
-2. Define our custom domain names for APIM
-3. Setup automated issuing and renewal of certificates using Let's Encrypt and Key Vault Acmebot.
+1. Deploy an **Azure Key Vault** - Used to store our SSL certificates for APIM Custom Domain Names.
+2. Define our **Custom Domain Names** for APIM
+3. Setup automated issuing and renewal of **SSL Certificates** using Let's Encrypt and Key Vault Acmebot.
 
 With these things in-place we'll be able to deploy the APIM service with custom domain names which we will do in Part 2.
 
@@ -30,9 +30,9 @@ Deploy Azure Key Vault
 -----
 First thing we need to do is to create an Azure Key Vault. The template I use is a quite simple template that basically just deploys the Key Vault, but there are some minor settings that are important later on.
 
-1. Azure Key Vault is enabled for ARM template deployment. This is needed to access the Key Vault during template deployments, and we'll do that when we deploy the APIM Service.
-2. Soft Delete is enabled on the Key Vault. This is a requirement when using certificates from an Azure Key Vault in an Azure Application Gateway that will be used in-front of APIM configured in internal VNet mode later on (and it's a good idea to always enable soft delete for your Key Vaults).
-3. Assign an access policy with full permissions to my AAD account for administration.
+1. Azure Key Vault is **_enabled_** for **ARM Template Deployment**. This is needed to access the Key Vault during template deployments, and we'll do that when we deploy the APIM Service.
+2. **Soft Delete** is **_enabled_** on the Key Vault. This is a requirement when using certificates from an Azure Key Vault in an Azure Application Gateway that will be used in-front of APIM configured in internal VNet mode later on (and it's a good idea to always enable soft delete for your Key Vaults).
+3. **_Assign_** an **Access Policy** with full permissions to my AAD account for administration.
 
 <a class="github-button" href="https://github.com/StefanIvemo/APIM/blob/master/Misc/KeyVault.json" aria-label="Use this template StefanIvemo/APIM on GitHub">Use this template</a>
 
@@ -49,6 +49,9 @@ First thing we need to do is to create an Azure Key Vault. The template I use is
         },
         "tenantID": {
             "type": "string"
+            "metadata": {
+                "description": "Tenant ID of the AAD tenant"
+            }
         },
         "adminID": {
             "type": "string",
@@ -145,7 +148,7 @@ First thing we need to do is to create an Azure Key Vault. The template I use is
 
 Custom Domain names
 -----
-I use custom domain names with APIM instead of the default *.azure-api.net names. I will use the following custom domain names for my APIM endpoints, use domain names that makes sense for you.  
+I use Custom Domain Names with APIM instead of the default *.azure-api.net names. I use the following Custom Domain Names for my APIM endpoints:  
 
 | Domain name   | Endpoint      |
 | :------------- |:-------------|
@@ -165,7 +168,7 @@ The steps below are a simplified explanation of the Key Vault Acmebot issuing an
 
 1. Navigate to https://YOUR-FUNCTIONS.azurewebsites.net/add-certificate and add all the domain names that you need certificates for and click on submit.
 
-<img src="https://github.com/StefanIvemo/stefanivemo.github.io/blob/master/images/apim-part1/Part1-acmebotissue.png?raw=true">  
+<img src="https://github.com/StefanIvemo/stefanivemo.github.io/blob/master/images/apim-part1/Part1-acmebotissue.PNG?raw=true">  
 
 2. The first thing that needs to happen before the certificates can be issued is that the Key Vault Acmebot Function has to prove to the CA that it controls the domain, in my case doublerdiner.dev.  
     1. The Key Vault Acmebot Function asks the Let’s Encrypt CA what it needs to do in order to prove that it controls the domain (doublerdiner.dev).  
