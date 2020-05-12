@@ -4,7 +4,7 @@ title: About
 permalink: /about/
 ---
 
-My name is Stefan Ivemo and this is my cloud blog! Here you will find a mixture of things related to Microsoft Azure, Microsoft 365 and AWS. It can be anything from deployment guides, scripting to thoughts and opinions. Welcome!
+Hi! I'm Stefan Ivemo and this is my cloud blog! Here you will find a mixture of things related to Microsoft Azure, Microsoft 365 and AWS. It can be anything from deployment guides, scripting to thoughts and opinions. Welcome!
 
 
 ### Certifications
