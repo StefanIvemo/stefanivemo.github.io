@@ -4,7 +4,7 @@ title: About
 permalink: /about/
 ---
 
-Hi! I'm Stefan Ivemo and this is my cloud blog! Here you will find a mixture of things related to Microsoft Azure, Microsoft 365 and AWS. It can be anything from deployment guides, scripting to thoughts and opinions. Welcome!
+Hi! I'm Stefan Ivemo and this is my cloud blog! Here you'll find a mixture of things related to Microsoft Azure, Microsoft 365 and AWS. I'll try to share some good stuff with you, hope you like it.
 
 
 ### Certifications
@@ -23,4 +23,4 @@ Hi! I'm Stefan Ivemo and this is my cloud blog! Here you will find a mixture of 
 
 ### Contact me
 
-[stefan@ivemo.se](mailto:stefan@ivemo.se)
+[stefan[at]ivemo.se](mailto:stefan@ivemo.se)
