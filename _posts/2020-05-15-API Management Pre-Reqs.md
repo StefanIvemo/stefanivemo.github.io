@@ -173,10 +173,8 @@ I'm not going to go through the actual steps of deploying the solution since a d
 The steps below are a simplified explanation of the Key Vault Acmebot issuing and how Let’s Encrypt works. There are a couple of more things going on in the background, but this will give you an understanding on what's going on.
 
 1. When the solution is deployed, navigate to https://YOUR-FUNCTIONS.azurewebsites.net/add-certificate and add all the domain names that you need certificates for and click on submit.
-
-<img src="https://github.com/StefanIvemo/stefanivemo.github.io/blob/master/images/apim-part1/Part1-acmebotissue.PNG?raw=true">  
-
-2. Before the certificates can be issued the Key Vault Acmebot Function has to prove to the CA that it controls the domain, in my case doublerdiner.dev.  
+<img src="https://github.com/StefanIvemo/stefanivemo.github.io/blob/master/images/apim-part1/Part1-acmebotissue.PNG?raw=true">
+2. Before the certificates can be issued the Key Vault Acmebot Function has to prove to the CA that it controls the domain, in my case doublerdiner.dev.    
     1. The Key Vault Acmebot Function asks the Let’s Encrypt CA what it needs to do in order to prove that it controls the domain (doublerdiner.dev).  
     2. Let’s Encrypt CA will look at the domain name being requested and issue one or more sets of challenges (HTTP-01 or DNS-01). These are different ways that the agent can prove control of the domain.  
     3. Along with the challenges, the Let’s Encrypt CA also provides a nonce that the agent must sign with its private key pair to prove that it controls the key pair.
