@@ -176,19 +176,18 @@ The steps below are a simplified explanation of the Key Vault Acmebot issuing an
 <img src="https://github.com/StefanIvemo/stefanivemo.github.io/blob/master/images/apim-part1/Part1-acmebotissue.PNG?raw=true">
 2. Before the certificates can be issued the Key Vault Acmebot Function has to prove to the CA that it controls the domain, in my case doublerdiner.dev.    
     1. The Key Vault Acmebot Function request certificates for the provided names in step 1 and asks the Let’s Encrypt CA what it needs to do in order to prove that it controls the domain (doublerdiner.dev).  
-    2. Let’s Encrypt CA will look at the domain name being requested and issue one or more sets of challenges (HTTP-01 or DNS-01). These are different ways that the agent can prove control of the domain.  
-    3. Along with the challenges, the Let’s Encrypt CA also provides a nonce that the agent must sign with its private key pair to prove that it controls the key pair.
-    4. Since Key Vault Acmebot is built to use the DNS-01 challenge the Azure Function creates a couple of TXT DNS Records in the DNS Zone for doublerdiner.dev in the _acme-challenge.<YOUR_DOMAIN> format with the value set to tokens received from Let’s Encrypt CA.        
+    2. Let’s Encrypt CA will look at the domain name being requested and issue one or more sets of challenges (HTTP-01 or DNS-01). These are different ways that the agent can prove control of the domain. Along with the challenges, the Let’s Encrypt CA also provides a nonce that the agent must sign with its private key pair to prove that it controls the key pair.
+    3. Since Key Vault Acmebot is built to use the DNS-01 challenge the Azure Function creates a couple of TXT DNS Records in the DNS Zone for doublerdiner.dev in the _acme-challenge.<YOUR_DOMAIN> format with the value set to tokens received from Let’s Encrypt CA.        
     <img src="https://github.com/StefanIvemo/stefanivemo.github.io/blob/master/images/apim-part1/part1-dnsverification.PNG?raw=true">      
-    5. When the Key Vault Acmebot have completed the DNS Record Creation it notifies the Let’s Encrypt CA that it's ready to complete validation.
-    6. The CA verifies the Key Vault Acmebots key pair and it attempts to resolve the DNS Names and make sure it has the expected content.
-    7. If the key pair is valid, and the challenges check out, then the agent identified by the public key is authorized to do certificate management for doublerdiner.dev
-
+    4. When the Key Vault Acmebot have completed the DNS Record Creation it notifies the Let’s Encrypt CA that it's ready to complete validation.
+    5. The CA verifies the Key Vault Acmebots key pair and it attempts to resolve the DNS Names and make sure it has the expected content.
+    6. If the key pair is valid, and the challenges check out, then the agent identified by the public key is authorized to do certificate management for doublerdiner.dev  
+    <img src="https://github.com/StefanIvemo/stefanivemo.github.io/blob/master/images/apim-part1/Part1-Acmebot-challenge.png?raw=true">      
 3. When the domain validation steps are done it's time to get the certificates issued.  
     1. The Key Vault Acmebot Function constructs CSRs for the requested domain names and asks the Let’s Encrypt CA to issue a certificates for doublerdiner.dev with a specified public key. The agent also signs the whole CSR with the authorized key for doublerdiner.dev so that the Let’s Encrypt CA knows it’s authorized.
     2. When the Let’s Encrypt CA receives the request, it verifies both signatures. If everything looks good, Let's Encrypt issues certificates for doublerdiner.dev with the public key from the CSR and returns it to the Key Vault Acmebot Function.  
     3. The Key Vault Acmebot Function adds the certificates to the Azure Key Vault.
-
+    <img src="https://github.com/StefanIvemo/stefanivemo.github.io/blob/master/images/apim-part1/Part1-Acmebot-issuing.png?raw=true"> 
 4. And that's it, the certificates are now issued and can be found in my Key Vault, with automatic renewal in-place.  
   
 <img src="https://github.com/StefanIvemo/stefanivemo.github.io/blob/master/images/apim-part1/part1-keyvaultcerts.PNG?raw=true">  
