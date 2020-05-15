@@ -192,7 +192,7 @@ The steps below are a simplified explanation of the Key Vault Acmebot issuing an
     3. The Key Vault Acmebot Function adds the certificates to the Azure Key Vault.
 
 4. And that's it, the certificates are now issued and can be found in my Key Vault, with automatic renewal in-place.  
-<img src="https://github.com/StefanIvemo/stefanivemo.github.io/blob/master/images/apim-part1/part1-keyvaultcerts.PNG?raw=true">
+<img src="https://github.com/StefanIvemo/stefanivemo.github.io/blob/master/images/apim-part1/part1-keyvaultcerts.PNG?raw=true">  
 
 If you're interesting in learning more about how Let's Encrypt works [read this](https://letsencrypt.org/how-it-works/).
 
