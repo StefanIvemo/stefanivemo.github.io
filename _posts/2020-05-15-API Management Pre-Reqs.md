@@ -178,10 +178,8 @@ The steps below are a simplified explanation of the Key Vault Acmebot issuing an
     1. The Key Vault Acmebot Function asks the Let’s Encrypt CA what it needs to do in order to prove that it controls the domain (doublerdiner.dev).  
     2. Let’s Encrypt CA will look at the domain name being requested and issue one or more sets of challenges (HTTP-01 or DNS-01). These are different ways that the agent can prove control of the domain.  
     3. Along with the challenges, the Let’s Encrypt CA also provides a nonce that the agent must sign with its private key pair to prove that it controls the key pair.
-    4. Since Key Vault Acmebot is built to use the DNS-O1 challenge the Azure Function creates a couple of TXT DNS Records in the DNS Zone for doublerdiner.dev in the _acme-challenge.<YOUR_DOMAIN> format with the value set to tokens received from Let’s Encrypt CA.
-        
-    <img src="https://github.com/StefanIvemo/stefanivemo.github.io/blob/master/images/apim-part1/part1-dnsverification.PNG?raw=true">  
-      
+    4. Since Key Vault Acmebot is built to use the DNS-O1 challenge the Azure Function creates a couple of TXT DNS Records in the DNS Zone for doublerdiner.dev in the _acme-challenge.<YOUR_DOMAIN> format with the value set to tokens received from Let’s Encrypt CA.        
+    <img src="https://github.com/StefanIvemo/stefanivemo.github.io/blob/master/images/apim-part1/part1-dnsverification.PNG?raw=true">      
     5. When the Key Vault Acmebot have completed the DNS Record Creation it notifies the Let’s Encrypt CA that it's ready to complete validation.
     6. The CA verifies the Key Vault Acmebots key pair and it attempts to resolve the DNS Names and make sure it has the expected content.
     7. If the key pair is valid, and the challenges check out, then the agent identified by the public key is authorized to do certificate management for doublerdiner.dev
