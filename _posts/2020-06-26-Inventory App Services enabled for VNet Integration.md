@@ -14,7 +14,7 @@ Finding all App Services and Function Apps enabled for VNet Integration is a bit
 
 The Script
 ------
-The script is a simple one where I just list all App Services and Function Apps in my subscription using the commands `az webapp list` and `az functionapp list`.Then I loop through the result looking for services with VNet Integration enabled and outputs some information regarding the App Services and Function Apps found that I find useful.
+The script is a simple one where I just list all App Services and Function Apps in my subscription using the commands `az webapp list` and `az functionapp list`. Then I loop through the result looking for services with VNet Integration enabled and outputs some information regarding the App Services and Function Apps found that I find useful.
 
 <a class="github-button" href="https://github.com/StefanIvemo/AzureNetworking/blob/master/Scripts/Get-AppServiceVNetIntegration.ps1" aria-label="Use this template StefanIvemo/APIM on GitHub">Use this script</a>
 
