@@ -9,7 +9,7 @@ Finding all App Services and Function Apps enabled for VNet Integration is a bit
 
 1. The obvious start for me was to use PowerShell to list all the App Services. But it turns out there is no PowerShell Support to configure or view VNet Integration settings for App Services yet. 
 2. Ok, so how about Azure Resource Graph then? After a bit of research I noticed that the VNet Integration config can be found in the resource type `microsoft.web/sites/config` and that is not a resource type yet [supported](https://docs.microsoft.com/en-us/azure/governance/resource-graph/reference/supported-tables-resources){:target="_blank"} by Azure Resource Graph, so we can't use that either.
-3. Reading the docs for [VNet Integration](https://docs.microsoft.com/en-us/azure/app-service/web-sites-integrate-with-vnet#automation) there is a section regarding automation using Azure CLI. The two commands available in Preview are `az webapp vnet-integration` and `az appservice vnet-integration`, finally we have something to work with.
+3. Reading the docs for [VNet Integration](https://docs.microsoft.com/en-us/azure/app-service/web-sites-integrate-with-vnet#automation){:target="_blank"} there is a section regarding automation using Azure CLI. The two commands available in Preview are `az webapp vnet-integration` and `az appservice vnet-integration`, finally we have something to work with.
 
 
 The Script
@@ -56,7 +56,7 @@ This is what happened:
 
 <img src="https://github.com/StefanIvemo/stefanivemo.github.io/blob/master/images/vnet-integration/script-output-black.PNG?raw=true">
 
-It turns out there is a [bug](https://github.com/Azure/azure-cli/issues/12084) when running Azure CLI commands in PowerShell Scripts. There is a workaround available where you can add an environment variable to the [Azure CLI Config](https://docs.microsoft.com/en-us/cli/azure/azure-cli-configuration?view=azure-cli-latest) to disable color settings. The configuration file itself is located at `$AZURE_CONFIG_DIR/config`. The default value of `AZURE_CONFIG_DIR` is `$HOME/.azure` on Linux and macOS, and `%USERPROFILE%\.azure` on Windows. I've added the following environment variables to my config file to disable coloring and suppress warnings that commands are in preview.
+It turns out there is a [bug](https://github.com/Azure/azure-cli/issues/12084){:target="_blank"} when running Azure CLI commands in PowerShell Scripts. There is a workaround available where you can add an environment variable to the [Azure CLI Config](https://docs.microsoft.com/en-us/cli/azure/azure-cli-configuration?view=azure-cli-latest){:target="_blank"} to disable color settings. The configuration file itself is located at `$AZURE_CONFIG_DIR/config`. The default value of `AZURE_CONFIG_DIR` is `$HOME/.azure` on Linux and macOS, and `%USERPROFILE%\.azure` on Windows. I've added the following environment variables to my config file to disable coloring and suppress warnings that commands are in preview.
 
 {% highlight conf %}
 [core]
