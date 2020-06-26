@@ -66,3 +66,14 @@ no_color=yes
 Summary
 ------
 Hope you find the script useful, happy inventory!
+
+<script src="https://utteranc.es/client.js"
+        repo="StefanIvemo/stefanivemo.github.io"
+        issue-term="pathname"
+        label="Comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+
+<script async defer src="https://buttons.github.io/buttons.js"></script>
