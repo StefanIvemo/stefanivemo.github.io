@@ -8,7 +8,7 @@ I've been working a lot with Azure Networking the last couple of months, re-buil
 Finding all App Services and Function Apps enabled for VNet Integration is a bit more difficult than you can imagine when you start looking at it.
 
 1. The obvious start for me was to use PowerShell to list all the App Services. But it turns out there is no PowerShell Support to configure or view VNet Integration settings for App Services yet. 
-2. Ok, so how about Azure Resource Graph then? After a bit of research I noticed that the VNet Integration config can be found in the resource type `microsoft.web/sites/config` and that is not a resource type yet [supported](https://docs.microsoft.com/en-us/azure/governance/resource-graph/reference/supported-tables-resources) by Azure Resource Graph, so we can't use that either.
+2. Ok, so how about Azure Resource Graph then? After a bit of research I noticed that the VNet Integration config can be found in the resource type `microsoft.web/sites/config` and that is not a resource type yet [supported](https://docs.microsoft.com/en-us/azure/governance/resource-graph/reference/supported-tables-resources){:target="_blank"} by Azure Resource Graph, so we can't use that either.
 3. Reading the docs for [VNet Integration](https://docs.microsoft.com/en-us/azure/app-service/web-sites-integrate-with-vnet#automation) there is a section regarding automation using Azure CLI. The two commands available in Preview are `az webapp vnet-integration` and `az appservice vnet-integration`, finally we have something to work with.
 
 
