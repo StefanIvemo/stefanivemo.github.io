@@ -56,7 +56,7 @@ This is what happened:
 
 <img src="https://github.com/StefanIvemo/stefanivemo.github.io/blob/master/images/vnet-integration/script-output-black.PNG?raw=true">
 
-It turns out there is a [bug](https://github.com/Azure/azure-cli/issues/12084) when running Azure CLI commands in PowerShell Scripts. There is a workaround available where you can add an environment variable to the [Azure CLI Config](https://docs.microsoft.com/en-us/cli/azure/azure-cli-configuration?view=azure-cli-latest) to disable color settings. The configuration file itself is located at `$AZURE_CONFIG_DIR/config`. The default value of `AZURE_CONFIG_DIR` is `$HOME/.azure` on Linux and macOS, and `%USERPROFILE%\.azure` on Windows. I've added the following environment variables to my config file to disable coloring and suppress warnings that commands are in preview (az webapp vnet-integration is currently in preview).
+It turns out there is a [bug](https://github.com/Azure/azure-cli/issues/12084) when running Azure CLI commands in PowerShell Scripts. There is a workaround available where you can add an environment variable to the [Azure CLI Config](https://docs.microsoft.com/en-us/cli/azure/azure-cli-configuration?view=azure-cli-latest) to disable color settings. The configuration file itself is located at `$AZURE_CONFIG_DIR/config`. The default value of `AZURE_CONFIG_DIR` is `$HOME/.azure` on Linux and macOS, and `%USERPROFILE%\.azure` on Windows. I've added the following environment variables to my config file to disable coloring and suppress warnings that commands are in preview.
 
 {% highlight conf %}
 [core]
