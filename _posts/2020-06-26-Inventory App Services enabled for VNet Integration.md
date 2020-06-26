@@ -50,7 +50,9 @@ The output will look like this:
 
 Azure CLI & PowerShell Color bug
 ------
-When running this script, I had the problem that occurred every time I ran my script where the color on my output magically changed to black and staying like that until I restarted VSCode. If you test this script you might experience the same color bug I ran into, since it took me a while to figure out what happened and I wanted to share how to solve it with a workaround.  
+When running this script, I had the problem that occurred every time I ran my script where the color on my output magically changed to black and staying like that until I restarted VSCode. If you test this script you might experience the same color bug I ran into, since it took me a while to figure out what happened and I wanted to share how to solve it with a workaround.
+
+This is what happened:  
 
 <img src="https://github.com/StefanIvemo/stefanivemo.github.io/blob/master/images/vnet-integration/script-output-black.PNG?raw=true">
 
