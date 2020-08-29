@@ -16,7 +16,7 @@ Let's say we have a web application protected by an Application Gateway with WAF
 In order to test this I have setup an Application Gateway with the WAF v2 SKU, created a WAF policy and attached it to the App GW, configured the App GW to publish a Web Application running on an App Service over port 80 on the DNS name `secret.ivemo.se`.  
 <br/>
 <img src="https://github.com/StefanIvemo/stefanivemo.github.io/blob/master/images/waf-gotcha/appgw-overview.png?raw=true">
-<br/>
+<br/><br/>
 Lets create a custom rule with the following settings:
 
 - **Name** - DenyNonSecretRequests
