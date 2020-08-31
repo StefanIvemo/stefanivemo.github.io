@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Bypassing custom rules for Web Application Firewall v2
+title: Bypassing custom rules using the RequestHeaders match variable in WAF v2
 ---
 
 I had a case the other day where a custom rule in a Web Application Firewall v2 policy attached to an Application Gateway behaved kind of funky. The rule was setup to deny traffic if a specific request header in the HTTP request was not present. At first everything looked good but after a while I still noticed that some unwanted traffic was hitting my backend service. After some testing and investigation, I came up with the following. Thanks [@SimonWahlin](https://twitter.com/SimonWahlin) for the support!
