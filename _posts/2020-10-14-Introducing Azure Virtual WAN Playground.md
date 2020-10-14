@@ -4,8 +4,6 @@ title: Introducing Azure Virtual WAN Playground!
 ---
 Last week I decided to share my Azure Virtual WAN lab environment by publishing it on [GitHub](https://raw.githubusercontent.com/StefanIvemo/vwan-playground/main/README.md), this blog post is an introduction to my so called **Azure Virtual WAN Playground!**
 
-<a class="github-button" href="https://github.com/StefanIvemo/vwan-playground" aria-label="Azure Virtual WAN Playground!">Azure Virtual Wan Playground!</a>
-
 ## What is Azure Virtual WAN Playground?
 If you've been using Azure Virtual WAN you know that it's quite expensive to run for lab purposes and not something you just leave running in your personal Azure Subscription. And deploying it using the Portal by enabling one feature at the time takes a lot of time and you'll probably spend a day just to get your lab environment up and running. I wanted to make sure I had a lab environment that looked the same every time I had to play around with Virtual WAN, was quick and easy to deploy and could be removed as soon as I was done to save me some Azure Credit. The outcome of this work is what I like to call **Azure Virtual WAN Playground**.
 
@@ -56,7 +54,9 @@ Virtual WAN Playground is an ongoing project and new functionality will be added
 
 Summary
 ------
-Hope you find this useful! Stay tuned for a deep dive into how to deploy Virtual WAN using templates and how to avoid your deployment from failing!
+Hope you find this useful! Stay tuned for a deep dive into how to deploy Virtual WAN using templates and how to avoid your deployment from failing. In the meantime start deploying your Virtual WAN Playground!
+
+<a class="github-button" href="https://github.com/StefanIvemo/vwan-playground" aria-label="Azure Virtual WAN Playground!">Azure Virtual Wan Playground!</a>
 
 <script src="https://utteranc.es/client.js"
         repo="StefanIvemo/stefanivemo.github.io"
