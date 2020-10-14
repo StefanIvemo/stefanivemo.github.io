@@ -2,20 +2,20 @@
 layout: post
 title: Introducing Azure Virtual WAN Playground!
 ---
-Last week I decided to share my Azure Virtual WAN lab environment by publishing it on [GitHub](https://raw.githubusercontent.com/StefanIvemo/vwan-playground/main/README.md), this blog post is an introduction to my so called **Azure Virtual WAN Playground**!
+Last week I decided to share my Azure Virtual WAN lab environment by publishing it on [GitHub](https://raw.githubusercontent.com/StefanIvemo/vwan-playground/main/README.md), this blog post is an introduction to my so called **Azure Virtual WAN Playground!**
 
-<a class="github-button" href="https://github.com/StefanIvemo/vwan-playground" aria-label="Azure Virtual WAN Playground!">Azure Virtual Wan Playground</a>
+<a class="github-button" href="https://github.com/StefanIvemo/vwan-playground" aria-label="Azure Virtual WAN Playground!">Azure Virtual Wan Playground!</a>
 
 ## What is Azure Virtual WAN Playground?
-If you've been using Azure Virtual WAN you know that it's quite expensive to run for lab purposes and not something you just leave running in your personal Azure Subscription. And deploying it using the Portal by enabling one feature at the time takes a lot of time and you'll probably spend a day just to get your lab environment up and running. I wanted to make sure I had a lab environment that looked the same every time I had to play around with Virtual WAN, was quick and easy to deploy and could be removed as soon as I was done to save some Azure Credit. The outcome of this work is what I like to call **Azure Virtual WAN Playground**.
+If you've been using Azure Virtual WAN you know that it's quite expensive to run for lab purposes and not something you just leave running in your personal Azure Subscription. And deploying it using the Portal by enabling one feature at the time takes a lot of time and you'll probably spend a day just to get your lab environment up and running. I wanted to make sure I had a lab environment that looked the same every time I had to play around with Virtual WAN, was quick and easy to deploy and could be removed as soon as I was done to save me some Azure Credit. The outcome of this work is what I like to call **Azure Virtual WAN Playground**.
 
 ## How it's built
-When I started working with Azure Virtual WAN a while back I was using ARM Templates for deployment. One of the challenges with Virtual WAN and writing the ARM template are all the references and dependencies between resources, it will drive you crazy! There are also some big differences between API Versions, for example moving from 2020-04-01 to 2020-05-01 completely changes the Microsoft.Network/virtualHubs resource. I ended up spending a lot of time maintaining and developing the template. 
+When I started working with Azure Virtual WAN a while back I was using ARM Templates for deployment. One of the challenges with Virtual WAN and writing the ARM template are all the references and dependencies between resources, it will drive you crazy! There are also some big differences between API Versions, for example moving from `2020-04-01` to `2020-05-01` completely changes the `Microsoft.Network/virtualHubs` resource. I ended up spending a lot of time maintaining and developing the template. 
 
-Then [Bicep language](https://github.com/Azure/bicep) was introduced and released in Alpha a month ago! **Bicep** is a Domain Specific Language (DSL) for deploying Azure resources declaratively. It aims to drastically simplify the authoring experience with a cleaner syntax and better support for modularity and code re-use. Sounds awesome, right!? I decided to give it a shot and see how it could improve my Virtual WAN Deployment. I know Bicep is still in Alpha but I love it already! A work with ARM templates almost every day and using **Bicep** is such an improvement. I use it all the time now when I have to build a new template, just write the **Bicep** code > build > ARM Template generated, and if I need to use a function isn't supported yet like copy loops or conditions I add it to my complied template and I'm good to go.
+Then 💪[Bicep language](https://github.com/Azure/bicep) was introduced and released in Alpha a month ago! **Bicep** is a Domain Specific Language (DSL) for deploying Azure resources declaratively. It aims to drastically simplify the authoring experience with a cleaner syntax and better support for modularity and code re-use. Sounds awesome, right!? I decided to give it a shot and see how it could improve my Virtual WAN Deployment. I know Bicep is still in Alpha but I love it already! A work with ARM templates almost every day and using **Bicep** is such an improvement. I use it all the time now when I have to build a new template, just write the **Bicep** code, run a build and an ARM Template gets generated. If I need to use a function that isn't supported yet like `copy` loops or `conditions` I add it to my complied template and I'm good to go. Enough about **Bicep** we'll cover that some other time!
 
 ## Virtual WAN Playground Topology
-At the time of writing this blog post the Virtual WAN Playground contains the following resources:
+At the time of writing this blog post the Virtual WAN Playground contains the following resources (this will change over time 😊):
 
 - Azure Virtual WAN
   - Virtual WAN Hub (Secured Virtual Hub)
