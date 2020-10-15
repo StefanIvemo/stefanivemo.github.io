@@ -1,6 +1,6 @@
 ---
 layout: post
-title: [Draft]Deploy Azure Virtual WAN using templates.
+title: Draft - Deploy Azure Virtual WAN using templates.
 ---
 
 Deploying Azure Virtual WAN using ARM templates can be frustrating and it takes some time before you get a hang on it. There are a lot of dependencies between resources and you need to make sure that everything is deployed in the correct order and allow the Virtual Hub and routing to reach succeeded state before throwing more things at it. In this post I will guide you through how to build a Virtual WAN template!
