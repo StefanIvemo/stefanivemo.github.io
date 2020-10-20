@@ -4,8 +4,18 @@ title: About
 permalink: /about/
 ---
 
-Hi! I'm Stefan Ivemo and this is my cloud blog! Here you'll find a mixture of things related to Microsoft Azure, Microsoft 365 and AWS. I'll try to share some good stuff with you, hope you like it.
+### Hi! 👋
 
+I'm a Technical Architect at Advania - Knowledge Factory, Azure is where my ❤ is!
+
+- 🔭 I’m currently working with a lot of Azure Networking, Governance and Security
+- 🌱 I’m currently learning everything about Azure Virtual WAN
+- 🎸 Coding at my best to the tunes of Turbonegro 🤘
+- 💬 Ask me about Azure, NHL stats or how to grow the best 🥕
+- 📫 How to reach me:
+  - 🦅 - [Twitter](https://twitter.com/StefanIvemo)
+  - 🏢 - [LinkedIn](https://www.linkedin.com/in/stefanivemo/) 
+- ⚡ Fun fact: I plan to retire from work at the age of 40 to pursue a career as a professional golfer! ⛳
 
 ### Certifications
 
