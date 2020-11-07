@@ -86,11 +86,11 @@ Next up is the Virtual Hub, just like the Virtual WAN resource it's a simple one
 ## Microsoft.Network/firewallPolicies
 Time to prepare for Azure Firewall (Secure Virtual Hub) by creating an [Azure Firewall Policy](https://docs.microsoft.com/en-us/azure/firewall-manager/policy-overview). I like to specify the Azure Firewall Policy and Rule Collection Groups as separate resources in the template because it simplifies the template, especially when using multiple Rule Collection Groups. It keeps the Firewall properties separated from the Firewall Rules which is quite neat.
 - `name` - Firewall Policy Name
-- `threatIntelMode` - The operation mode for Threat Intelligence. - `Alert`, `Deny`, `Off`
+- `threatIntelMode` - The operation mode for [Threat Intelligence](https://docs.microsoft.com/en-us/azure/firewall/threat-intel). - `Alert`, `Deny`, `Off`
 - `threatIntelWhitelist` - Threat intelligence whitelist object
     - `ipAddresses` - List of IP Addresses to whitelist from Threat Intelligence
     - `fqdns` - List of FQDNS to whitelist from Threat Intelligence
-- `dnsSettings` - Azure Firewall DNS Settings
+- `dnsSettings` - [Azure Firewall DNS Settings](https://docs.microsoft.com/en-us/azure/firewall/dns-settings)
     - `servers`- List of Custom DNS Servers
     - `enableProxy` - Property to enable DNS Proxy
     - `requireProxyForNetworkRules` - Using FQDNs in Network Rules are supported when set to true
@@ -112,7 +112,7 @@ Time to prepare for Azure Firewall (Secure Virtual Hub) by creating an [Azure Fi
         dnsSettings": {
             "servers": [],
             "enableProxy": false,
-          "requireProxyForNetworkRules": false
+            "requireProxyForNetworkRules": false
         }
     }
 }
@@ -194,9 +194,9 @@ Time to add some rules to the Firewall Policy, I'll keep it simple for now with 
 The Azure Firewall resource deployed in a Virtual Hub is almost the same as when deployed in a Virtual Network. There are some key differences:
 
 - The SKU property must be specified with the name `AZFW_Hub` instead of `AZFW_VNet`.
-- In a VNet deployed Firewall there is a `ipConfigurations`property object where the IP Configurations are set. The first IP Configuration object in a VNet deployed Azure Firewall have two properties, `subnet` that contains the resource ID to the AzureFirewallSubnet in the VNet where the Azure Firewall is deployed and the `publicIPAddress` property that contains the resource ID to the Public IP address to use with the Azure Firewall. Additional Public IPs are assigned by adding additional `ipConfigurations` without the `subnet` property which is only allowed in the first IP Configuration declared.
+- In a VNet deployed Firewall there is a `ipConfigurations` property object where the IP Configurations are set. The first IP Configuration object in a VNet deployed Azure Firewall have two properties, `subnet` that contains the resource ID to the AzureFirewallSubnet and the `publicIPAddress` property that contains the resource ID to the Public IP address to use with the Azure Firewall. Additional Public IPs are assigned by adding additional `ipConfigurations` without the `subnet` property which is only allowed in the first IP Configuration declared.
 
-In a Secured Virtual Hub we don't have the `ipConfigurations` property available. Since the Virtual WAN Hub is a Microsoft Managed VNet we can't access the AzureFirewallSubnet. When it comes to the Public IP addresses we can't decide which ones to use, the only thing we can do is specify the Public IP Count to control the number of IP Addresses allocated to the Firewall. (I really hope that we will be able to allocate IPs from a Public IP Prefix to a Secured Virtual Hub Firewall in the future!). So what do we have instead of the `ipConfigurations` property?
+In a *Secure Virtual Hub* we don't have the `ipConfigurations` property available. Since the Virtual WAN Hub is a Microsoft Managed VNet we can't access the AzureFirewallSubnet. When it comes to the Public IP addresses we can't decide which ones to use, the only thing we can do is specify the Public IP Count to control the number of IP Addresses allocated to the Firewall. (I really hope that we will be able to allocate IPs from Public IP Prefixes to a Secure Virtual Hub Firewall in the future!). So what do we have instead of the `ipConfigurations` property?
 
   - We have a new property called `virtualHub` this is where we specify the resource ID of the Virtual WAN to associate the Azure Firewall to.
   - There is also a `hubIPAddresses` property where we can specify the number of Public IPs ot use by setting the `publicIPs` `count`.
@@ -241,9 +241,9 @@ Lets take a look at the Azure Firewall Resource:
 {% endhighlight %}
 
 ## Microsoft.Network/virtualHubs/hubRouteTables
-Now that the Azure Firewall is deployed it's time to get some routing in-place. I want to route all traffic from On-Premises locations to my Azure VNets through Azure Firewall. And for my VNets in Azure I want to send outbound internet traffic and traffic towards On-Premises through Azure Firewall. In order to do that I need a new Custom Hub Route Table `RT_VNet` that I will associate with all VNet Connections and add a static route to the `defaultRouteTable` used by all branches (Custom Route Tables for branches are not available).
+Now that the Azure Firewall is deployed it's time to get some routing in-place. I want to route all traffic from On-Premises locations to my Azure VNets through Azure Firewall. And for my VNets in Azure I want to send outbound internet traffic and traffic towards On-Premises through Azure Firewall. In order to do that I need a new Custom Hub Route Table `RT_VNet` that I will associate with all VNet Connections and add a static route to the `defaultRouteTable` used by all branches. Custom Route Tables for branches are not available, all branches are associated with and are propagating routes to the `defaultRouteTable`.
 
-- `name` - Name of the Route Table, since it's a child resource to the Virutal Hub make sure that the correct segments are used.
+- `name` - Name of the Route Table, since it's a child resource to the Virtual Hub make sure that the correct segments are used.
 - `routes` - List of all routes to add
   - `name` - Route name
   - `destinationType` - The type of destination, `CIDR`, `ResourceId` or `Service`.
