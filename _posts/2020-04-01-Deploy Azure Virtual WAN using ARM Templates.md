@@ -1,13 +1,12 @@
 ---
 layout: post
-title: Draft - Deploy Azure Virtual WAN using templates.
+title: Draft - Deploy Azure Virtual WAN using templates
 ---
 
 Deploying Azure Virtual WAN using ARM templates can be frustrating and it takes some time before you get a hang on it. There are a lot of dependencies between resources and you need to make sure that everything is deployed in the correct order and also allow the Virtual Hub and routing to reach succeeded state before throwing more things at it. In this post I will guide you through how to build a Virtual WAN template!
 
-```
-	Note: This post explains first time deployments only, to make the template reusable you have to add some logic to it. But that is something we can cover in separate post, let's focus on getting that VWAN deployed!
-```
+**Note:** *This post explains first time deployments only, to make the template reusable you have to add some logic to it. But that is something we can cover in separate post, let's focus on getting that VWAN deployed!*
+
 
 ## API Version
 For ARM templates, you must always specify an API version for every resource type you're going deploy. The API version corresponds to a version of REST API operations that are released by the resource provider e.g `Microsoft.Network`. When a resource provider enables new features a new API Version is released. Sometimes a new API Version just enables a couple of new features, and you can just change it to the most recent version and your template will still function properly without any other modifications. But that's not always the case, in some cases a new API Version completely changes how some resources are defined and deployed. When it comes to Azure Virtual WAN the change from API Version `2020-04-01` to `2020-05-01` equals a couple of breaking changes. If you see an example template using API Version `2020-04-01` you can't just update the API Version and expect a successful deployment.
