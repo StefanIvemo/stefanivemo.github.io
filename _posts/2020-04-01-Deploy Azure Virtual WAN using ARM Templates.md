@@ -36,12 +36,11 @@ Lets break down a Virtual WAN with a secure virtual hub deployment into pieces. 
 
 **Note:** *The code snippets in this post are examples on how you can define the resources in your ARM template. If you create a template using copy/paste and these examples it might not work as expected. See the full example in the [VWAN Playground Repo](https://github.com/StefanIvemo/vwan-playground) to get the full picture. I'm also not covering all available properties for each resource type. For a full list of properties see [ARM Template Reference](https://docs.microsoft.com/en-us/azure/templates/microsoft.network/allversions). I've also decided to remove the `dependsOn` property from the code snippets to reduce the code, and just added a simple dependsOn note above the examples.*
 
-
 ## Microsoft.Network/virtualWans
-There´s not much to say about the `Microsoft.Network/virtualWans` resource, It's pretty straight forward. You create the resource specifying three properties:
-- `type:` Specifies the [Virtual WAN SKU](https://docs.microsoft.com/en-us/azure/virtual-wan/upgrade-virtual-wan) - Allowed values are `Standard` or `Basic`
+There´s not much to say about the `Microsoft.Network/virtualWans` resource, It's pretty straight forward. You create the resource specifying just a couple of properties:
+- `type` - Specifies the [Virtual WAN SKU](https://docs.microsoft.com/en-us/azure/virtual-wan/upgrade-virtual-wan), allowed values are `Standard` or `Basic`.
 - `disableVpnEncryption` - Property to disable VPN Encryption.
-- `allowBranchToBranchTraffic` - Specifies if [branches](https://docs.microsoft.com/en-us/azure/virtual-wan/virtual-wan-faq#is-branch-to-branch-connectivity-allowed-in-virtual-wan) should be allowed to communicate through the Virtual WAN.
+- `allowBranchToBranchTraffic` - Specifies if [branches](https://docs.microsoft.com/en-us/azure/virtual-wan/virtual-wan-faq#is-branch-to-branch-connectivity-allowed-in-virtual-wan) should be allowed to communicate through the Virtual WAN. Important to remember that User VPN counts as a branch, if you want to allow users connected to VPN to reach an On-Premises site, this must be enabled.
 - `office365LocalBreakoutCategory` - Specify Office 365 local breakout category - Allowed values `Optimize, OptimizeAndAllow, All, None`
 
 `dependsOn: Nothing`
