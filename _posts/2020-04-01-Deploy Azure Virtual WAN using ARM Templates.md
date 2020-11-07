@@ -13,14 +13,14 @@ For ARM templates, you must always specify an API version for every resource typ
 
 The following things are good to know when it comes to `Microsoft.Network` API Versions and Virtual WAN:
 
-- `2020-04-01` - Do not use this version (or earlier) if you´re building a new template, you will have to do a lot of modifications when upgrading to a newer version.
+- `2020-04-01` - Do not use this version (or earlier) if you´re building a new template, you will have to do a lot of modifications when upgrading to a newer version. And you can not use Virtual Hub Route tables.
 - `2020-05-01` - With this API Version a couple of major changes where introduced:
-    - `Microsoft.Network/virtualHubs` has changed a lot. Properties that in earlier versions was declared as properties inside the Virtual Hub are now child resources one of them `Microsoft.Network/virtualHubs/hubVirtualNetworkConnections`
-    - `Microsoft.Network/firewallPolicies:` Azure Firewall policies have been updated to support Rule Collection Groups `Microsoft.Network/firewallPolicies/ruleCollectionGroups`.  
-- `2020-06-01` - Latest release
+    - `Microsoft.Network/virtualHubs` has changed a lot. Properties that in earlier versions was declared as properties inside the Virtual Hub are now child resources the most important one is `Microsoft.Network/virtualHubs/hubVirtualNetworkConnections`
+    - `Microsoft.Network/firewallPolicies` Azure Firewall policies have been updated to support Rule Collection Groups `Microsoft.Network/firewallPolicies/ruleCollectionGroups`. This completely change how Firewall Policies are defined.
+- `2020-06-01` - Latest API Version
 
 # Breaking down the template - Resource by resource
-Lets break down a Virtual WAN with a secure virtual hub deployment into pieces. A full lab environment based on Azure Virtual WAN template can be found in my [Azure Virtual WAN Playground Repo](https://github.com/StefanIvemo/vwan-playground). The examples below are based on that repository, check it out if you want to skip this article and dive into the full deployment at once. This article will focus on the following resource types used in a Virtual WAN:
+Lets break down a Virtual WAN with a secure virtual hub deployment into pieces. A complete ARM template for reference can be found in my [Azure Virtual WAN Playground Repo](https://github.com/StefanIvemo/vwan-playground). The examples in this post are based on that repository, check it out if you want to skip this article and dive into the full deployment at once. This article will focus on the following resource types used in a Virtual WAN:
 
 - Virtual WAN
 - Virtual Hub
