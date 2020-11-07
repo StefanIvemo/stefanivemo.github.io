@@ -27,12 +27,14 @@ Lets break down a Virtual WAN with a secure virtual hub deployment into pieces. 
 - Azure Firewall Policy
 - Azure Firewall
 - Virtual Hub Route Tables
+  - Updating defaultRouteTable
+  - Custom Route Table
 - Hub Virtual Network Connections
 - VPN Sites
-- VPN Gateways
+- VPN Gateway
   - VPN Connection
 
-The code snippets in this post are examples on how you can define the resources in your ARM template. If you copy/paste a template using the examples it might not work as expected. See the full example in the [VWAN Playground Repo](https://github.com/StefanIvemo/vwan-playground) to get the full picture.
+**Note:** *The code snippets in this post are examples on how you can define the resources in your ARM template. If you create a template using copy/paste and these examples it might not work as expected. See the full example in the [VWAN Playground Repo](https://github.com/StefanIvemo/vwan-playground) to get the full picture. I'm also not covering all available properties for each resource type. For a full list of properties see [ARM Template Reference](https://docs.microsoft.com/en-us/azure/templates/microsoft.network/allversions). I've also decided to remove the `dependsOn` property from the code snippets to reduce the code, and just added a simple dependsOn note above the examples.*
 
 
 ## Microsoft.Network/virtualWans
