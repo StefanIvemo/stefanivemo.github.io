@@ -41,7 +41,7 @@ There´s not much to say about the `Microsoft.Network/virtualWans` resource, it'
 - `type` - Specifies the [Virtual WAN SKU](https://docs.microsoft.com/en-us/azure/virtual-wan/upgrade-virtual-wan), allowed values are `Standard` or `Basic`.
 - `disableVpnEncryption` - Property to disable VPN Encryption.
 - `allowBranchToBranchTraffic` - Specifies if [branches](https://docs.microsoft.com/en-us/azure/virtual-wan/virtual-wan-faq#is-branch-to-branch-connectivity-allowed-in-virtual-wan) should be allowed to communicate through the Virtual WAN. Important to remember that User VPN counts as a branch, if you want to allow users connected to VPN to reach an On-Premises site, this must be enabled.
-- `office365LocalBreakoutCategory` - Specify Office 365 local breakout category - Allowed values `Optimize, OptimizeAndAllow, All, None`
+- `office365LocalBreakoutCategory` - Specify Office 365 local breakout category - Allowed values `Optimize`, `OptimizeAndAllow`, `All`, `None`
 
 `dependsOn: Nothing`
 
@@ -64,7 +64,7 @@ There´s not much to say about the `Microsoft.Network/virtualWans` resource, it'
 Next up is the Virtual Hub, just like the Virtual WAN resource it's a simple one. The properties specified are:
 - `name` - Name of the Virtual Hub
 - `addressPrefix` - The address space used by the Virtual Hub, minimum address space is /24.
-- `virtualWan` - The Virtual WAN resource id.
+- `virtualWan` - Resource ID to the Virtual WAN.
 
 `dependsOn: Virtual WAN`
 
