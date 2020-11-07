@@ -253,7 +253,7 @@ Now that the Azure Firewall is deployed it's time to get some routing in-place. 
 - `labels` - List of labels associated with this route table.
 
 ### defaultRouteTable 
-The `defaultRouteTable` is created with the Virtual WAN Hub and are used by all branch connections by default. I want to make sure that all traffic between On-Premises and Azure is routed through Azure Firewall and to achieve that a static route must be added. I like to reserve a CIDR block dedicated for a specific Azure region. I use this for the Virtual Hub (or Virtual Network Hub for a traditional topology) and all connected VNets in the specified region. This simplifies routing between regions and regional firewalls. In this example I add a static route with destination 10.0.0.0/16 and next hop Azure Firewall.
+The `defaultRouteTable` is created with the Virtual WAN Hub and are used by all branch connections by default. I want to make sure that all traffic between On-Premises and Azure is routed through Azure Firewall and to achieve that a static route must be added. I like to reserve a CIDR block dedicated for a specific Azure region. I use this for the Virtual Hub (or Virtual Network Hub for a traditional topology) and all connected VNets in the specified region. This simplifies routing between regions and regional firewalls. In this example I add a static route with destination **10.0.0.0/16** and next hop Azure Firewall.
 
 `dependsOn: Virtual Hub, Azure Firewall`
 
@@ -320,7 +320,7 @@ Virtual Network Connections are created as a child resource to the Virtual Hub. 
   - `routingConfiguration` - Object with all routing configuration for the VNet connection.
     - `associatedRouteTable` - Resource ID to the associated route table for the VNet Connection. This is the route table that the VNet will learn all its routes from.
     - `propagatedRouteTables` - Object with configuration on route tables where the VNet connection are propagating routes.
-      - `labels` - This is a cool feature. The VNet connection will propagate routes to all route tables in the Virtual WAN that have the same label as defined in this property. 
+      - `labels` - This is a really cool feature. The VNet connection will propagate routes to all route tables in the Virtual WAN that have the same label as defined in this property.
       - `ids` - Resource IDs to all Route Tables that the VNet Connection should propagate routes.
 
 `dependsOn: Virtual Hub, Azure Firewall, Hub Route Table (RT_VNet)`
@@ -355,7 +355,7 @@ Virtual Network Connections are created as a child resource to the Virtual Hub. 
 {% endhighlight %}
 
 ## Microsoft.Network/vpnSites
-Time to define all physical locations to where we want to connect using site-to-site VPN. VPN Sites are added to the Virtual WAN Resource. In this example BGP is being used.
+Time to define all physical locations to where we want to connect using site-to-site VPN. VPN Sites are added to the Virtual WAN Resource. In this example BGP is being used. In a traditional VNet topology it would be considered a Local Network Gateway.
 
 - `name` - Name of VPN Site
 - `addressSpace` - IP address space that is located on your on-premises site
@@ -402,20 +402,15 @@ Time to define all physical locations to where we want to connect using site-to-
 {% endhighlight %}
 
 ## Microsoft.Network/vpnGateways
-Time for the VPN Gateway. A very simple resource since there are not much we can configure.
+Time for the VPN Gateway, a quite simple resource.
 
 - `name` - Name of VPN Gateway
-- `connections` - Connections object, this is where all site-to-sites tunnels are defined.
-  - `name` - Name of the site-to-site connection
-    - `connectionBandwidth` - Expected bandwidth in Mbps
-    - `enableBgp` - Use BGP or not, bool
-    - `sharedKey` - PSK for the site-to-site tunnel, if no PSK is provided a PSK will be generated automatically.
-    - `remoteVpnSite` - Resource ID of the VPN Site to connect to.
 - `virtualHub` - Resource ID of the Virtual Hub where the VPN Gateway should be created.
 - `bgpSettings` - BGP Settings object
     - `asn` - VPN Gateway AS Number
+- `vpnGatewayScaleUnit` - Number of VPN Gateway Scale Units
 
-`dependsOn: Virtual WAN, Virtual Hub, Azure Firewall, VPN Sites`
+`dependsOn: Virtual WAN, Virtual Hub, Azure Firewall`
 
 {% highlight JSON %}
     {
@@ -424,19 +419,6 @@ Time for the VPN Gateway. A very simple resource since there are not much we can
       "name": "[variables('hubvpngwname')]",
       "location": "[parameters('location')]",
       "properties": {
-        "connections": [
-          {
-            "name": "HubToOnPremConnection",
-            "properties": {
-              "connectionBandwidth": 10,
-              "enableBgp": true,
-              "sharedKey": "[parameters('psk')]",
-              "remoteVpnSite": {
-                "id": "[resourceId('Microsoft.Network/vpnSites', variables('onpremvpnsitename'))]"
-              }
-            }
-          }
-        ],
         "virtualHub": {
           "id": "[resourceId('Microsoft.Network/virtualHubs', variables('hubname'))]"
         },
@@ -446,6 +428,32 @@ Time for the VPN Gateway. A very simple resource since there are not much we can
       }
     }
 {% endhighlight %}
+
+## Microsoft.Network/vpnGateways/vpnConnections
+Time to connect the VPN Gateway with the VPN Site. 
+
+- `name` - Name of VPN Connection. It's a child resource, make sure that the segments are correct.
+- 
+
+`dependsOn: Virtual WAN, Virtual Hub, Azure Firewall`
+
+{% highlight JSON %}
+    {
+      "type": "Microsoft.Network/vpnGateways",
+      "apiVersion": "2020-05-01",
+      "name": "[variables('hubvpngwname')]",
+      "location": "[parameters('location')]",
+      "properties": {
+        "virtualHub": {
+          "id": "[resourceId('Microsoft.Network/virtualHubs', variables('hubname'))]"
+        },
+        "bgpSettings": {
+          "asn": 65515
+        }
+      }
+    }
+{% endhighlight %}
+
 
 ## Summary
 That's all for this post! I know that there are some other resources available for Virtual WAN like Express Route Gateway, User VPN Gateway, User VPN Configuration but that´s something we can save for another time. I hope that the information in this post is enough to get you started with your Azure Virtual WAN deployments.
