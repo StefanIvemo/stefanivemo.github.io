@@ -15,7 +15,7 @@ The following things are good to know when it comes to `Microsoft.Network` API V
 
 - `2020-04-01` - Do not use this version (or earlier) if you´re building a new template, you will have to do a lot of modifications when upgrading to a newer version. And you can not use Virtual Hub Route tables.
 - `2020-05-01` - With this API Version a couple of major changes where introduced:
-  - `Microsoft.Network/virtualHubs` has changed a lot. Properties that in earlier versions was declared as properties inside the Virtual Hub are now child resources the most important one is `Microsoft.Network/virtualHubs/hubVirtualNetworkConnections`
+  - `Microsoft.Network/virtualHubs` has changed a lot. Things that in earlier versions was declared as properties inside the Virtual Hub are now child resources, the most common of them `Microsoft.Network/virtualHubs/hubVirtualNetworkConnections`
   - `Microsoft.Network/firewallPolicies` Azure Firewall policies have been updated to support Rule Collection Groups `Microsoft.Network/firewallPolicies/ruleCollectionGroups`. This completely change how Firewall Policies are defined.
 - `2020-06-01` - Latest API Version
 
