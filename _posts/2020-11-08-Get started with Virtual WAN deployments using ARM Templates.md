@@ -35,7 +35,7 @@ Lets break down a Virtual WAN with a secure virtual hub deployment into pieces. 
 - VPN Gateway
   - VPN Connection
 
-**Note:** *The code snippets in this post are examples on how you can define the resources in your ARM template. If you create a template using copy/paste and these examples it might not work as expected. See the full example in the [VWAN Playground Repo](https://github.com/StefanIvemo/vwan-playground) to get the full picture (you can also look at a 💪Bicep verison of the template!). I'm also not covering all available properties for each resource type. For a full list of properties see [ARM Template Reference](https://docs.microsoft.com/en-us/azure/templates/microsoft.network/allversions). At last I've decided to remove the `dependsOn` property from the code snippets to reduce the code, and just added a simple dependsOn note above the examples.*
+**Note:** *The code snippets in this post are examples on how you can define the resources in your ARM template. If you create a template using copy/paste and these examples it might not work as expected. See the full example in the [VWAN Playground Repo](https://github.com/StefanIvemo/vwan-playground) to get the full picture (you can also look at a 💪Bicep verison of the template!). I'm also not covering all available properties for each resource type. For a full list of properties see [ARM Template Reference](https://docs.microsoft.com/en-us/azure/templates/microsoft.network/allversions). At last I've decided to remove the `dependsOn` property from the code snippets to reduce the code, and just added a simple dependsOn note above the examples to explain what other resources it depends on.*
 
 ## Microsoft.Network/virtualWans
 
