@@ -52,10 +52,10 @@ There´s not much to say about the `Microsoft.Network/virtualWans` resource, it'
 {
     "type": "Microsoft.Network/virtualWans",
     "apiVersion": "2020-05-01",
-    "name": "[variables('wanname')]",
-    "location": "[parameters('location')]",
+    "name": "contoso-vwan",
+    "location": "westeurope",
     "properties": {
-        "type": "[parameters('wantype')]",
+        "type": "Standard",
         "disableVpnEncryption": false,
         "allowBranchToBranchTraffic": true,
         "office365LocalBreakoutCategory": "None"
@@ -77,12 +77,12 @@ Next up is the Virtual Hub, just like the Virtual WAN resource it's a simple one
 {
     "type": "Microsoft.Network/virtualHubs",
     "apiVersion": "2020-05-01",
-    "name": "[variables('hubname')]",
-    "location": "[parameters('location')]",
+    "name": "contoso-vhub-westeurope",
+    "location": "westeurope",
     "properties": {
-      "addressPrefix": "[parameters('hubaddressprefix')]",
+      "addressPrefix": "10.0.0.0/24",
       "virtualWan": {
-        "id": "[resourceId('Microsoft.Network/virtualWans', variables('wanname'))]"
+        "id": "[resourceId('Microsoft.Network/virtualWans', 'contoso-fw-westeurope')]"
       }
     }
 }
@@ -108,8 +108,8 @@ Time to prepare for Azure Firewall (Secure Virtual Hub) by creating an [Azure Fi
 {
     "type": "Microsoft.Network/firewallPolicies",
     "apiVersion": "2020-05-01",
-    "name": "[variables('fwpolicyname')]",
-    "location": "[parameters('location')]",
+    "name": "contoso-fw-westeurope-policy",
+    "location": "westeurope",
     "properties": {
         "threatIntelMode": "Alert",
         "threatIntelWhitelist": {
@@ -154,11 +154,8 @@ Time to add some rules to the Firewall Policy, I'll keep it simple for now with 
     {
       "type": "Microsoft.Network/firewallPolicies/ruleCollectionGroups",
       "apiVersion": "2020-06-01",
-      "name": "Policy-01/DefaultApplicationRuleCollectionGroup",
-      "location": "[parameters('location')]",
-      "dependsOn": [
-        "[resourceId('Microsoft.Network/firewallPolicies', 'Policy-01')]"
-      ],
+      "name": "contoso-fw-westeurope-policy/DefaultApplicationRuleCollectionGroup",
+      "location": "westeurope",
       "properties": {
         "priority": 100,
         "ruleCollections": [
@@ -229,23 +226,23 @@ Lets take a look at the Azure Firewall Resource:
 {
       "type": "Microsoft.Network/azureFirewalls",
       "apiVersion": "2020-05-01",
-      "name": "[variables('fwname')]",
-      "location": "[parameters('location')]",
+      "name": "contoso-fw-westeurope",
+      "location": "westeurope",
       "properties": {
         "sku": {
           "name": "AZFW_Hub",
           "tier": "Standard"
         },
         "virtualHub": {
-          "id": "[resourceId('Microsoft.Network/virtualHubs', variables('hubname'))]"
+          "id": "[resourceId('Microsoft.Network/virtualHubs', 'contoso-vhub-westeurope')]"
         },
         "hubIPAddresses": {
           "publicIPs": {
-            "count": "[parameters('fwpublicipcount')]"
+            "count": 2
           }
         },
         "firewallPolicy": {
-          "id": "[resourceId('Microsoft.Network/firewallPolicies', variables('fwpolicyname'))]"
+          "id": "[resourceId('Microsoft.Network/firewallPolicies', 'contoso-fw-westeurope-policy')]"
         }
       }
     }
@@ -274,8 +271,8 @@ The `defaultRouteTable` is created with the Virtual WAN Hub and are used by all 
        {
       "type": "Microsoft.Network/virtualHubs/hubRouteTables",
       "apiVersion": "2020-05-01",
-      "name": "[format('{0}/defaultRouteTable', variables('hubname'))]",
-      "location": "[parameters('location')]",
+      "name": "contoso-vhub-westeurope/defaultRouteTable",
+      "location": "westeurope",
       "properties": {
         "routes": [
           {
@@ -285,7 +282,7 @@ The `defaultRouteTable` is created with the Virtual WAN Hub and are used by all 
               "10.0.0.0/16"
             ],
             "nextHopType": "ResourceId",
-            "nextHop": "[resourceId('Microsoft.Network/azureFirewalls', variables('fwname'))]"
+            "nextHop": "[resourceId('Microsoft.Network/azureFirewalls', 'contoso-fw-westeurope')]"
           }
         ],
         "labels": [
@@ -305,7 +302,7 @@ This is what the **RT_VNet** Hub Route Table looks like. One single static route
     {
       "type": "Microsoft.Network/virtualHubs/hubRouteTables",
       "apiVersion": "2020-05-01",
-      "name": "[format('{0}/RT_VNet', variables('hubname'))]",
+      "name": "contoso-vhub-westeurope/RT_VNet",
       "properties": {
         "routes": [
           {
@@ -315,7 +312,7 @@ This is what the **RT_VNet** Hub Route Table looks like. One single static route
               "0.0.0.0/0"
             ],
             "nextHopType": "ResourceId",
-            "nextHop": "[resourceId('Microsoft.Network/azureFirewalls', variables('fwname'))]"
+            "nextHop": "[resourceId('Microsoft.Network/azureFirewalls', 'contoso-fw-westeurope')]"
           }
         ],
         "labels": [
@@ -344,15 +341,15 @@ Virtual Network Connections are created as a child resource to the Virtual Hub. 
     {
       "type": "Microsoft.Network/virtualHubs/hubVirtualNetworkConnections",
       "apiVersion": "2020-05-01",
-      "name": "[format('{0}/{1}', variables('hubname'), variables('spokeconnectionname'))]",
+      "name": "contoso-vhub-westeurope/spokeConnectionName",
       "properties": {
         "remoteVirtualNetwork": {
-          "id": "[resourceId('Microsoft.Network/virtualNetworks', variables('spokevnetname'))]"
+          "id": "[resourceId('Microsoft.Network/virtualNetworks', 'spokeVnetName')]"
         },
         "enableInternetSecurity": true,
         "routingConfiguration": {
           "associatedRouteTable": {
-            "id": "[resourceId('Microsoft.Network/virtualHubs/hubRouteTables', split(format('{0}/RT_VNet', variables('hubname')), '/')[0], split(format('{0}/RT_VNet', variables('hubname')), '/')[1])]"
+            "id": "[resourceId('Microsoft.Network/virtualHubs/hubRouteTables', 'contoso-vhub-westeurope/RT_VNet')]"
           },
           "propagatedRouteTables": {
             "labels": [
@@ -360,7 +357,7 @@ Virtual Network Connections are created as a child resource to the Virtual Hub. 
             ],
             "ids": [
               {
-                "id": "[resourceId('Microsoft.Network/virtualHubs/hubRouteTables', split(format('{0}/RT_VNet', variables('hubname')), '/')[0], split(format('{0}/RT_VNet', variables('hubname')), '/')[1])]"
+                "id": "[resourceId('Microsoft.Network/virtualHubs/hubRouteTables', 'contoso-vhub-westeurope/RT_VNet')]"
               }
             ]
           }
@@ -393,15 +390,15 @@ Time to define all physical locations to where we want to connect using site-to-
     {
       "type": "Microsoft.Network/vpnSites",
       "apiVersion": "2020-05-01",
-      "name": "[variables('onpremvpnsitename')]",
-      "location": "[parameters('location')]",
+      "name": "onprem-vpnsite",
+      "location": "westeurope",
       "properties": {
         "addressSpace": {
-          "addressPrefixes": "[parameters('onpremaddressprefix')]"
+          "addressPrefixes": "10.20.0.0/24"
         },
         "bgpProperties": {
           "asn": 65010,
-          "bgpPeeringAddress": "[reference(resourceId('Microsoft.Network/virtualNetworkGateways', variables('onpremvpngwname'))).bgpSettings.bgpPeeringAddress]",
+          "bgpPeeringAddress": "10.128.0.10",
           "peerWeight": 0
         },
         "deviceProperties": {
@@ -409,9 +406,9 @@ Time to define all physical locations to where we want to connect using site-to-
           "deviceModel": "AzureVPNGateway",
           "linkSpeedInMbps": 10000
         },
-        "ipAddress": "[reference(resourceId('Microsoft.Network/publicIPAddresses', variables('onpremvpngwpipname'))).ipAddress]",
+        "ipAddress": "92.34.128.10",
         "virtualWan": {
-          "id": "[resourceId('Microsoft.Network/virtualWans', variables('wanname'))]"
+          "id": "[resourceId('Microsoft.Network/virtualWans', 'contoso-vwan')]"
         }
       }
     }
@@ -433,11 +430,11 @@ Time for the VPN Gateway, a quite simple resource.
     {
       "type": "Microsoft.Network/vpnGateways",
       "apiVersion": "2020-05-01",
-      "name": "[variables('hubvpngwname')]",
-      "location": "[parameters('location')]",
+      "name": "contoso-vhub-westeurope-vpngw",
+      "location": "westeurope",
       "properties": {
         "virtualHub": {
-          "id": "[resourceId('Microsoft.Network/virtualHubs', variables('hubname'))]"
+          "id": "[resourceId('Microsoft.Network/virtualHubs', 'contoso-vhub-westeurope')]"
         },
         "bgpSettings": {
           "asn": 65515
@@ -462,13 +459,13 @@ Time to connect the VPN Gateway with the VPN Site. This is usually a quite simpl
 {
       "type": "Microsoft.Network/vpnGateways/vpnConnections",
       "apiVersion": "2020-05-01",
-      "name": "[format('{0}/HubToOnPremConnection', variables('hubname'))]",
+      "name": "contoso-vhub-westeurope-vpngw/HubToOnPremConnection",
       "properties": {
         "connectionBandwidth": 10,
         "enableBgp": true,
-        "sharedKey": "[parameters('psk')]",
+        "sharedKey": "Ox4ZCYPn8hCgnZjHDPxkllNgVFE/poTS",
         "remoteVpnSite": {
-          "id": "[resourceId('Microsoft.Network/vpnSites', variables('onpremvpnsitename'))]"
+          "id": "[resourceId('Microsoft.Network/vpnSites', 'onpremvpnsitename')]"
         }
       }
     }
