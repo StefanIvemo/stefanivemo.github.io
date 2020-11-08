@@ -262,7 +262,7 @@ Now that the Azure Firewall is deployed it's time to get some routing in-place. 
 
 ### defaultRouteTable 
 
-The `defaultRouteTable` is created with the Virtual WAN Hub and are used by all branch connections by default. I want to make sure that all traffic between On-Premises and Azure is routed through Azure Firewall and to achieve that a static route must be added. I like to reserve a CIDR block dedicated for a specific Azure region. I use this for the Virtual Hub (or Virtual Network Hub for a traditional topology) and all connected VNets in the specified region. This simplifies routing between regions and regional firewalls. In this example I add a static route with destination **10.0.0.0/16** and next hop Azure Firewall.
+The `defaultRouteTable` is created with the Virtual Hub and are used by all branch connections by default. I want to make sure that all traffic between On-Premises and Azure is routed through Azure Firewall and to achieve that a static route must be added. I like to reserve a CIDR block dedicated for a specific Azure region. I use this for the Virtual Hub (or Virtual Network Hub for a traditional topology) and all connected VNets in the specified region. This simplifies routing between regions and regional firewalls. In this example I add a static route with destination **10.0.0.0/16** and next hop Azure Firewall.
 
 `dependsOn: Virtual Hub, Azure Firewall`
 
