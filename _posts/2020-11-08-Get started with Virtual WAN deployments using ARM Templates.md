@@ -415,7 +415,7 @@ Time to define all physical locations to where we want to connect using site-to-
 
 ## Microsoft.Network/vpnGateways
 
-Time for the VPN Gateway, a quite simple resource.
+Time for the VPN Gateway, a quite simple resource. I don't define any VPN Connections in the VPN Gateway resource since it will be a mess with multiple tunnels.
 
 - `name` - Name of VPN Gateway
 - `virtualHub` - Resource ID of the Virtual Hub where the VPN Gateway should be created.
@@ -444,7 +444,7 @@ Time for the VPN Gateway, a quite simple resource.
 
 ## Microsoft.Network/vpnGateways/vpnConnections
 
-Time to connect the VPN Gateway with the VPN Site. This is usually a quite simple resource to declare in most cases, but there are a lot of other properties that could be used. One of the most used property is `ipsecPolicies` used to configure a [custom IPsec policy](https://docs.microsoft.com/en-us/azure/virtual-wan/virtual-wan-custom-ipsec-portal).
+Time to connect the VPN Gateway with the VPN Site. This is usually a quite simple resource to declare, but there are a lot of other properties available that could be used. An example is `ipsecPolicies` that is used to configure a [custom IPsec policy](https://docs.microsoft.com/en-us/azure/virtual-wan/virtual-wan-custom-ipsec-portal).
 
 - `name` - Name of VPN Connection. It's a child resource, make sure that the segments are correct.
 - `connectionBandwidth` - Connected site bandwidth
