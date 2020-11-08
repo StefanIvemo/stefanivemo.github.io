@@ -367,7 +367,7 @@ Virtual Network Connections are created as a child resource to the Virtual Hub. 
 
 ## Microsoft.Network/vpnSites
 
-Time to define all physical locations to where we want to connect using site-to-site VPN. VPN Sites are added to the Virtual WAN Resource. In this example BGP is being used. In a traditional VNet topology it would be considered a Local Network Gateway.
+Time to define all physical locations to where we want to connect using site-to-site VPN. VPN Sites are added to the Virtual WAN Resource. In this example BGP is being used. A VPN Site is very much like a Local Network Gateway in a traditional VNet topology.
 
 - `name` - Name of VPN Site
 - `addressSpace` - IP address space that is located on your on-premises site
