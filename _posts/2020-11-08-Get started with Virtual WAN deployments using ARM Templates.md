@@ -474,6 +474,7 @@ Time to connect the VPN Gateway with the VPN Site. This is usually a quite simpl
 
 That's all for this post! There are some other resources available for Virtual WAN as well like Express Route Gateway, User VPN Gateway, User VPN Configuration etc. but that´s something we can save for another time. I hope that the information in this post is enough to get you started with your Azure Virtual WAN deployments.
 
+<a class="github-button" href="https://github.com/StefanIvemo/vwan-playground/blob/main/playground/main.json" aria-label="Full ARM Template Example">Full ARM Template Example</a>
 
 <script src="https://utteranc.es/client.js"
         repo="StefanIvemo/stefanivemo.github.io"
