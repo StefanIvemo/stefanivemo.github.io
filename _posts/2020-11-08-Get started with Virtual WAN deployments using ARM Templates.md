@@ -260,7 +260,7 @@ Now that the Azure Firewall is deployed it's time to get some routing in-place. 
   - `nextHop` - Next hop resource ID (Azure Firewall or VNet Connection)
 - `labels` - List of labels associated with this route table.
 
-### defaultRouteTable 
+### defaultRouteTable
 
 The `defaultRouteTable` is created with the Virtual Hub and are used by all branch connections by default. I want to make sure that all traffic between On-Premises and Azure is routed through Azure Firewall and to achieve that a static route must be added. I like to reserve a CIDR block dedicated for a specific Azure region. I use this for the Virtual Hub (or Virtual Network Hub for a traditional topology) and all connected VNets in the specified region. This simplifies routing between regions and regional firewalls. In this example I add a static route with destination **10.0.0.0/16** and next hop Azure Firewall.
 
@@ -293,7 +293,7 @@ The `defaultRouteTable` is created with the Virtual Hub and are used by all bran
 
 ### RT_VNet  
 
-This is what the **RT_VNet** Hub Route Table looks like. One single static route for destination **0.0.0.0/0** has been added to send all traffic to Azure Firewall. The route table is also tagged with the label `VNet`, [labels](https://docs.microsoft.com/en-us/azure/virtual-wan/about-virtual-hub-routing#static) can be used to logically group route tables. I've added a dependsOn to the defaultRouteTable to avoid a conflict during deployment, the Virtual WAN hub does not like to run multiple routing changes at the same time.
+This is what the **RT_VNet** Hub Route Table looks like. One single static route for destination **0.0.0.0/0** has been added to send all traffic to Azure Firewall, the route table is also tagged with the label `VNet`. [Labels](https://docs.microsoft.com/en-us/azure/virtual-wan/about-virtual-hub-routing#static) can be used to logically group route tables. I've added a dependsOn to the defaultRouteTable to avoid a conflict during deployment, the Virtual WAN hub does not like to run multiple routing changes at the same time.
 
 `dependsOn: Virtual Hub, Azure Firewall, defaultRouteTable`
 
