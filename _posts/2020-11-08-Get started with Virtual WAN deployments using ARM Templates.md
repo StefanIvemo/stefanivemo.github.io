@@ -116,7 +116,7 @@ Time to prepare for Azure Firewall (Secure Virtual Hub) by creating an [Azure Fi
             "ipAddresses": [],
             "fqdns": []
         },
-        dnsSettings": {
+        "dnsSettings": {
             "servers": [],
             "enableProxy": false,
             "requireProxyForNetworkRules": false
