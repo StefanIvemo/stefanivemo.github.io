@@ -1,6 +1,8 @@
 ---
 layout: post
 title: Introducing Azure Virtual WAN Playground!
+author: Stefan Ivemo
+summary: Azure Virtual WAN Playground, your one stop shop Virtual WAN lab environment.
 ---
 Last week I decided to share my Azure Virtual WAN lab environment by publishing it on [GitHub](https://github.com/StefanIvemo/vwan-playground), this blog post is an introduction to my so called **Azure Virtual WAN Playground!** 
 
