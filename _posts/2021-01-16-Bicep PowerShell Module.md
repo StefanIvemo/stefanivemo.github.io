@@ -41,7 +41,7 @@ Here´s how you can compile all `.bicep` files in a directory.
 1. In the directory `C:\Bicep\Modules` I have a couple of Bicep modules. 
 
 {% highlight powershell %}
-PS C:\> Get-ChildItem -Path C:\Bicep\Modules
+PS C:\> Get-ChildItem -Path 'C:\Bicep\Modules'
     
     Directory: C:\Bicep\Modules
     
@@ -59,13 +59,13 @@ Mode                 LastWriteTime         Length Name
 2. To compile all the files I can simply run `Invoke-BicepBuild` if the working directory is the same directory as where my bicep modules are located. I have all my bicep modules in a different directory than my working directory and I want to exclude `appgw.bicep` from compilation because it's still a work in progress and I know it will just generate a lot of build errors. I can then run `Invoke-BicepBuild -Path C:\Bicep\Modules -ExcludeFile appgw.bicep` to compile the files in the directory.
 
 {% highlight powershell %}
-PS C:\Bicep\Modules> Invoke-BicepBuild -Path C:\Bicep\Modules -ExcludeFile appgw.bicep
+PS C:\Bicep\Modules> Invoke-BicepBuild -Path 'C:\Bicep\Modules' -ExcludeFile 'appgw.bicep'
 {% endhighlight %}
 
 3. If we take a look inside the directory again we'll see that ARM templates have been created for each `.bicep` file except `appgw.bicep`.
 
 {% highlight powershell %}
-PS C:\> Get-ChildItem -Path C:\Bicep\Modules
+PS C:\> Get-ChildItem -Path 'C:\Bicep\Modules'
     
     Directory: C:\Bicep\Modules
     
@@ -104,8 +104,8 @@ param ddosProtectionPlanID string = ''
 2. If we compile `vnet.bicep` again using the `-GenerateParameterFile` switch we will get parameter file called `vnet.parameters.json`.
 
 {% highlight powershell %}
-PS C:\> Invoke-BicepBuild -Path C:\Bicep\Modules\vnet.bicep -GenerateParameterFile
-PS C:\> Get-ChildItem -Path C:\Bicep\Modules\ vnet*
+PS C:\> Invoke-BicepBuild -Path 'C:\Bicep\Modules\vnet.bicep' -GenerateParameterFile
+PS C:\> Get-ChildItem -Path 'C:\Bicep\Modules\' vnet*
     
     Directory: C:\Bicep\Modules
     
@@ -158,7 +158,7 @@ Here´s how you can decompile all `.json` files in a directory.
 1. You have a directory with multiple ARM Templates.
 
 {% highlight powershell %}
-PS C:\> Get-ChildItem -Path C:\ARMTemplates\
+PS C:\> Get-ChildItem -Path 'C:\ARMTemplates\'
     
     Directory: C:\ARMTemplates
     
@@ -175,13 +175,13 @@ Mode                 LastWriteTime         Length Name
 2. You can now decompile them all to `.bicep` files using `ConvertTo-Bicep -Path C:\ARMTemplates`
 
 {% highlight powershell %}
-PS C:\> ConvertTo-Bicep -Path C:\ARMTemplates
+PS C:\> ConvertTo-Bicep -Path 'C:\ARMTemplates'
 {% endhighlight %}
 
 3. When we look in the folder again we can see that `.bicep` files have been generated for each ARM Template.
 
 {% highlight powershell %}
-PS C:\> Get-ChildItem -Path C:\ARMTemplates\
+PS C:\> Get-ChildItem -Path 'C:\ARMTemplates\'
     
     Directory: C:\ARMTemplates
     
