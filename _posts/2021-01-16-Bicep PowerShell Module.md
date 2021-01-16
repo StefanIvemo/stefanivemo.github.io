@@ -5,16 +5,16 @@ author: Stefan Ivemo
 summary: An introduction to the Bicep PowerShell module.
 ---
 
-As you may know I'm completely sold on [Bicep](https://github.com/Azure/bicep), I absolutely love using it! I use it all the time to create my templates for Azure Deployments and I'm super excited for the upcoming release of v0.3 that will give us the missing piece of the puzzle, copy loops!
+As you may know I'm completely sold on [Bicep](https://github.com/Azure/bicep), I absolutely love using it! Since a while back I use to create all my templates for Azure Deployments (as long the features I need is supported in Bicep) and I'm super excited for the upcoming release of v0.3 that will give us the missing piece of the puzzle, copy loops!
 
-Lately I've been spending a lot of time creating a bunch of Bicep modules that I re-use in my templates over and over again. When I've spent a couple of hours coding I usually end up with a folder containing multiple `.bicep` files that I need to compile running `bicep build`. Since `bicep build` doesn't have a `--all` switch or support wildcard characters on Windows (on OSX/Linux you can run `bicep build *.bicep`) I started using a simple PowerShell function to compile all `.bicep` files in a folder instead of compiling them one by one. After a couple of days using the function it escalated with more features and I decided to put together a PowerShell module that wraps Bicep CLI and share it with the community. And that's when the [Bicep PowerShell Module](https://github.com/StefanIvemo/BicepPowerShell) was born.
+Lately I've been spending a lot of time creating a bunch of Bicep modules that I re-use in my templates over and over again. When I've spent a couple of hours coding I usually end up with a folder containing multiple `.bicep` files that I need to compile running `bicep build`. But since `bicep build` doesn't have a `--all` switch or support wildcard characters on Windows (on OSX/Linux you can run `bicep build *.bicep`) I started using a simple PowerShell function to compile all `.bicep` files in a folder instead of compiling them one by one. After a couple of days using the function it escalated with more features and I decided to put together a PowerShell module that wraps Bicep CLI and share it with the community. And that's how the [Bicep PowerShell Module](https://github.com/StefanIvemo/BicepPowerShell) was born.
 
 ## Commands implemented
 
-When writing this post the following commands have been implemented. For a updated list of commands see the [Bicep - PowerShell Module repository](https://github.com/StefanIvemo/BicepPowerShell).
+When writing this post the following commands have been implemented in the module. For a updated list of commands see the [Bicep - PowerShell Module repository](https://github.com/StefanIvemo/BicepPowerShell).
 
 - `Invoke-BicepBuild` - An equivalent to `bicep build` with some additional features.
-  - Use the `-Path` switch to specify a folder with `.bicep` files in order to compile them all.
+  - Use the `-Path` switch to specify a folder with `.bicep` files in order to compile them all at the same time.
   - If you have work in progress in the folder that you've specified, you can use the `-ExcludeFile` parameter to exclude a file from compilation.
   - Use the `-GenerateParameterFile` switch to generate ARM Template parameter files for the compiled `.bicep` file(s).
 - `ConvertTo-Bicep` - An equivalent to `bicep decompile`.
