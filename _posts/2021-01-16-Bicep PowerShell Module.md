@@ -90,58 +90,58 @@ When you run `bicep build` to compile your `.bicep` files to ARM Templates you w
 
 1. If we look at the `vnet.bicep` file we compiled earlier. It has the following parameters defined:
 
-{% highlight yaml %}
-param location string = resourceGroup().location
-param vnetname string = 'super-duper-vnet'
-param addressprefix string = '10.0.0.0/24'
-param dnsservers array
-param enableDdosProtection bool = false
-param ddosProtectionPlanID string = ''
-{% endhighlight %}
+    {% highlight yaml %}
+    param location string = resourceGroup().location
+    param vnetname string = 'super-duper-vnet'
+    param addressprefix string = '10.0.0.0/24'
+    param dnsservers array
+    param enableDdosProtection bool = false
+    param ddosProtectionPlanID string = ''
+    {% endhighlight %}
 2. If we compile `vnet.bicep` again using the `-GenerateParameterFile` switch we will get parameter file called `vnet.parameters.json`.
 
-{% highlight powershell %}
-Invoke-BicepBuild -Path 'C:\Bicep\Modules\vnet.bicep' -GenerateParameterFile
-Get-ChildItem -Path 'C:\Bicep\Modules\' vnet*
-    
-    Directory: C:\Bicep\Modules
-    
-Mode                 LastWriteTime         Length Name
-----                 -------------         ------ ----
--a---          2021-01-16    21:49            851 vnet.bicep
--a---          2021-01-16    21:49           1915 vnet.json
--a---          2021-01-16    21:49            499 vnet.parameters.json
-{% endhighlight %}
+    {% highlight powershell %}
+    Invoke-BicepBuild -Path 'C:\Bicep\Modules\vnet.bicep' -GenerateParameterFile
+    Get-ChildItem -Path 'C:\Bicep\Modules\' vnet*
+        
+        Directory: C:\Bicep\Modules
+        
+    Mode                 LastWriteTime         Length Name
+    ----                 -------------         ------ ----
+    -a---          2021-01-16    21:49            851 vnet.bicep
+    -a---          2021-01-16    21:49           1915 vnet.json
+    -a---          2021-01-16    21:49            499 vnet.parameters.json
+    {% endhighlight %}
 3. And if we look inside `vnet.parameters.json` it's a valid parameter file.
 
     > NOTE: All default values have been added to the parameter file except for `resourceGroup().location` used as default value for the `vnetname` parameter. Since ARM template functions can´t be used in parameter files they are replace with empty strings instead.
 
-{% highlight JSON %}
-{
-  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
-  "contentVersion": "1.0.0.0",
-  "parameters": {
-    "location": {
-      "value": ""
-    },
-    "vnetname": {
-      "value": "super-duper-vnet"
-    },
-    "addressprefix": {
-      "value": "10.0.0.0/24"
-    },
-    "dnsservers": {
-      "value": []
-    },
-    "enableDdosProtection": {
-      "value": false
-    },
-    "ddosProtectionPlanID": {
-      "value": ""
+    {% highlight JSON %}
+    {
+      "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "location": {
+          "value": ""
+        },
+        "vnetname": {
+          "value": "super-duper-vnet"
+        },
+        "addressprefix": {
+          "value": "10.0.0.0/24"
+        },
+        "dnsservers": {
+          "value": []
+        },
+        "enableDdosProtection": {
+          "value": false
+        },
+        "ddosProtectionPlanID": {
+          "value": ""
+        }
+      }
     }
-  }
-}
-{% endhighlight %}
+    {% endhighlight %}
 
 ## ConvertTo-Bicep
 
@@ -152,49 +152,49 @@ The only feature added to `ConvertTo-Bicep` is the possibility to decompile mult
 Here´s how you can decompile all `.json` files in a directory.
 
 1. You have a directory with multiple ARM Templates.
-
-{% highlight powershell %}
-Get-ChildItem -Path 'C:\ARMTemplates\'
-    
-    Directory: C:\ARMTemplates
-    
-Mode                 LastWriteTime         Length Name
-----                 -------------         ------ ----
--a---          2021-01-16    21:37           1702 keyvault.json
--a---          2021-01-16    21:38           1034 nsg.json
--a---          2021-01-16    21:38           2089 publicip.json
--a---          2021-01-16    21:38           1249 routetable.json
--a---          2021-01-16    21:38           3062 subnet.json
--a---          2021-01-16    21:49           1915 vnet.json
-{% endhighlight %}
+        
+        {% highlight powershell %}
+        Get-ChildItem -Path 'C:\ARMTemplates\'
+            
+            Directory: C:\ARMTemplates
+            
+        Mode                 LastWriteTime         Length Name
+        ----                 -------------         ------ ----
+        -a---          2021-01-16    21:37           1702 keyvault.json
+        -a---          2021-01-16    21:38           1034 nsg.json
+        -a---          2021-01-16    21:38           2089 publicip.json
+        -a---          2021-01-16    21:38           1249 routetable.json
+        -a---          2021-01-16    21:38           3062 subnet.json
+        -a---          2021-01-16    21:49           1915 vnet.json
+        {% endhighlight %}
 2. You can now decompile them all to `.bicep` files using `ConvertTo-Bicep -Path C:\ARMTemplates`
 
-{% highlight powershell %}
-ConvertTo-Bicep -Path 'C:\ARMTemplates'
-{% endhighlight %}
+    {% highlight powershell %}
+    ConvertTo-Bicep -Path 'C:\ARMTemplates'
+    {% endhighlight %}
 3. When we look in the folder again we can see that `.bicep` files have been generated for each ARM Template.
 
-{% highlight powershell %}
-Get-ChildItem -Path 'C:\ARMTemplates\'
+    {% highlight powershell %}
+    Get-ChildItem -Path 'C:\ARMTemplates\'
+        
+        Directory: C:\ARMTemplates
+        
+    Mode                 LastWriteTime         Length Name
+    ----                 -------------         ------ ----
+    -a---          2021-01-16    22:03            860 keyvault.bicep
+    -a---          2021-01-16    21:37           1702 keyvault.json
+    -a---          2021-01-16    22:03            450 nsg.bicep
+    -a---          2021-01-16    21:38           1034 nsg.json
+    -a---          2021-01-16    22:03           1026 publicip.bicep
+    -a---          2021-01-16    21:38           2089 publicip.json
+    -a---          2021-01-16    22:03            574 routetable.bicep
+    -a---          2021-01-16    21:38           1249 routetable.json
+    -a---          2021-01-16    22:03           1678 subnet.bicep
+    -a---          2021-01-16    21:38           3062 subnet.json
+    -a---          2021-01-16    22:03            887 vnet.bicep
+    -a---          2021-01-16    21:49           1915 vnet.json
+    {% endhighlight %}
     
-    Directory: C:\ARMTemplates
-    
-Mode                 LastWriteTime         Length Name
-----                 -------------         ------ ----
--a---          2021-01-16    22:03            860 keyvault.bicep
--a---          2021-01-16    21:37           1702 keyvault.json
--a---          2021-01-16    22:03            450 nsg.bicep
--a---          2021-01-16    21:38           1034 nsg.json
--a---          2021-01-16    22:03           1026 publicip.bicep
--a---          2021-01-16    21:38           2089 publicip.json
--a---          2021-01-16    22:03            574 routetable.bicep
--a---          2021-01-16    21:38           1249 routetable.json
--a---          2021-01-16    22:03           1678 subnet.bicep
--a---          2021-01-16    21:38           3062 subnet.json
--a---          2021-01-16    22:03            887 vnet.bicep
--a---          2021-01-16    21:49           1915 vnet.json
-{% endhighlight %}
-
 ## Get-BicepVersion
 
 `Get-BicepVersion` is a simple cmdlet to that outputs the installed version of Bicep CLI and the version number of the latest release in the [Azure/Bicep repo](https://github.com/Azure/bicep/releases)
@@ -203,13 +203,13 @@ Mode                 LastWriteTime         Length Name
 
 1. To check the versions just run `Get-BicepVersion`
 
-{% highlight powershell %}
-Get-BicepVersion
-    
-InstalledVersion LatestVersion
----------------- -------------
-0.2.212          0.2.212
-{% endhighlight %}
+    {% highlight powershell %}
+    Get-BicepVersion
+        
+    InstalledVersion LatestVersion
+    ---------------- -------------
+    0.2.212          0.2.212
+    {% endhighlight %}
 
 ## Install-BicepCLI
 
@@ -219,15 +219,15 @@ InstalledVersion LatestVersion
 
 1. To install Bicep CLI run `Install-BicepCLI`. If Bicep CLI is already installed a message will be outputted in the terminal.
 
-{% highlight powershell %}
-Install-BicepCLI
-The latest Bicep CLI Version is already installed.
-{% endhighlight %}
+    {% highlight powershell %}
+    Install-BicepCLI
+    The latest Bicep CLI Version is already installed.
+    {% endhighlight %}
     Or:
-{% highlight powershell %}
-Install-BicepCLI
-Bicep CLI is already installed, but there is a newer release available. Use Update-BicepCLI or Install-BicepCLI -Force to updated to the latest release
-{% endhighlight %}
+    {% highlight powershell %}
+    Install-BicepCLI
+    Bicep CLI is already installed, but there is a newer release available. Use Update-BicepCLI or Install-BicepCLI -Force to updated to the latest release
+    {% endhighlight %}
 
 ## Update-BicepCLI
 
@@ -237,10 +237,10 @@ Bicep CLI is already installed, but there is a newer release available. Use Upda
 
 1. To update Bicep CLI run `Update-BicepCLI`. If the latest version of Bicep CLI is already installed a message will be outputted in the terminal.
 
-{% highlight powershell %}
-Update-BicepCLI
-You are already running the latest version of Bicep CLI.
-{% endhighlight %}
+    {% highlight powershell %}
+    Update-BicepCLI
+    You are already running the latest version of Bicep CLI.
+    {% endhighlight %}
 
 ## Bug report and feature request
 
