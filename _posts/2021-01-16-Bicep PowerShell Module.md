@@ -41,7 +41,7 @@ Here´s how you can compile all `.bicep` files in a directory.
 1. In the directory `C:\Bicep\Modules` I have a couple of Bicep modules. 
 
 {% highlight powershell %}
-PS C:\> Get-ChildItem -Path 'C:\Bicep\Modules'
+Get-ChildItem -Path 'C:\Bicep\Modules'
     
     Directory: C:\Bicep\Modules
     
@@ -65,7 +65,7 @@ PS C:\Bicep\Modules> Invoke-BicepBuild -Path 'C:\Bicep\Modules' -ExcludeFile 'ap
 3. If we take a look inside the directory again we'll see that ARM templates have been created for each `.bicep` file except `appgw.bicep`.
 
 {% highlight powershell %}
-PS C:\> Get-ChildItem -Path 'C:\Bicep\Modules'
+Get-ChildItem -Path 'C:\Bicep\Modules'
     
     Directory: C:\Bicep\Modules
     
@@ -104,8 +104,8 @@ param ddosProtectionPlanID string = ''
 2. If we compile `vnet.bicep` again using the `-GenerateParameterFile` switch we will get parameter file called `vnet.parameters.json`.
 
 {% highlight powershell %}
-PS C:\> Invoke-BicepBuild -Path 'C:\Bicep\Modules\vnet.bicep' -GenerateParameterFile
-PS C:\> Get-ChildItem -Path 'C:\Bicep\Modules\' vnet*
+Invoke-BicepBuild -Path 'C:\Bicep\Modules\vnet.bicep' -GenerateParameterFile
+Get-ChildItem -Path 'C:\Bicep\Modules\' vnet*
     
     Directory: C:\Bicep\Modules
     
@@ -158,7 +158,7 @@ Here´s how you can decompile all `.json` files in a directory.
 1. You have a directory with multiple ARM Templates.
 
 {% highlight powershell %}
-PS C:\> Get-ChildItem -Path 'C:\ARMTemplates\'
+Get-ChildItem -Path 'C:\ARMTemplates\'
     
     Directory: C:\ARMTemplates
     
@@ -175,13 +175,13 @@ Mode                 LastWriteTime         Length Name
 2. You can now decompile them all to `.bicep` files using `ConvertTo-Bicep -Path C:\ARMTemplates`
 
 {% highlight powershell %}
-PS C:\> ConvertTo-Bicep -Path 'C:\ARMTemplates'
+ConvertTo-Bicep -Path 'C:\ARMTemplates'
 {% endhighlight %}
 
 3. When we look in the folder again we can see that `.bicep` files have been generated for each ARM Template.
 
 {% highlight powershell %}
-PS C:\> Get-ChildItem -Path 'C:\ARMTemplates\'
+Get-ChildItem -Path 'C:\ARMTemplates\'
     
     Directory: C:\ARMTemplates
     
@@ -210,7 +210,7 @@ Mode                 LastWriteTime         Length Name
 1. To check the versions just run `Get-BicepVersion`
 
 {% highlight powershell %}
-PS C:\> Get-BicepVersion
+Get-BicepVersion
     
 InstalledVersion LatestVersion
 ---------------- -------------
@@ -226,12 +226,12 @@ InstalledVersion LatestVersion
 1. To install Bicep CLI run `Install-BicepCLI`. If Bicep CLI is already installed a message will be outputted in the terminal.
 
 {% highlight powershell %}
-PS C:\> Install-BicepCLI
+Install-BicepCLI
 The latest Bicep CLI Version is already installed.
 {% endhighlight %}
     Or:
 {% highlight powershell %}
-PS C:\> Install-BicepCLI
+Install-BicepCLI
 Bicep CLI is already installed, but there is a newer release available. Use Update-BicepCLI or Install-BicepCLI -Force to updated to the latest release
 {% endhighlight %}
 
@@ -244,7 +244,7 @@ Bicep CLI is already installed, but there is a newer release available. Use Upda
 1. To update Bicep CLI run `Update-BicepCLI`. If the latest version of Bicep CLI is already installed a message will be outputted in the terminal.
 
 {% highlight powershell %}
-PS C:\> Update-BicepCLI
+Update-BicepCLI
 You are already running the latest version of Bicep CLI.
 {% endhighlight %}
 
