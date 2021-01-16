@@ -27,9 +27,9 @@ When writing this post the following commands have been implemented. For a updat
 
 The Bicep module is available at [PowerShell Gallery](https://www.powershellgallery.com/packages/Bicep/).
 
-```powershell
+{% highlight powershell %}
 Install-Module -Name Bicep
-```
+{% endhighlight %}
 
 ## Invoke-BicepBuild
 
@@ -40,7 +40,7 @@ Here´s how you can compile all `.bicep` files in a directory.
 
 1. In the directory `C:\Bicep\Modules` I have a couple of Bicep modules. 
 
-    ```powershell
+{% highlight powershell %}
     PS C:\> Get-ChildItem -Path C:\Bicep\Modules
     
         Directory: C:\Bicep\Modules
@@ -54,17 +54,17 @@ Here´s how you can compile all `.bicep` files in a directory.
     -a---          2021-01-08    14:01            464 routetable.bicep
     -a---          2021-01-08    14:01           1491 subnet.bicep
     -a---          2021-01-08    14:01            819 vnet.bicep
-    ```
+{% endhighlight %}
 
 2. To compile all the files I can simply run `Invoke-BicepBuild` if the working directory is the same directory as where my bicep modules are located. I have all my bicep modules in a different directory than my working directory and I want to exclude `appgw.bicep` from compilation because it's still a work in progress and I know it will just generate a lot of build errors. I can then run `Invoke-BicepBuild -Path C:\Bicep\Modules -ExcludeFile appgw.bicep` to compile the files in the directory.
 
-    ```powershell
+{% highlight powershell %}
     PS C:\Bicep\Modules> Invoke-BicepBuild -Path C:\Bicep\Modules -ExcludeFile appgw.bicep
-    ```
+{% endhighlight %}
 
 3. If we take a look inside the directory again we'll see that ARM templates have been created for each `.bicep` file except `appgw.bicep`.
 
-    ```powershell
+{% highlight powershell %}
     PS C:\> Get-ChildItem -Path C:\Bicep\Modules
     
         Directory: C:\Bicep\Modules
@@ -84,7 +84,7 @@ Here´s how you can compile all `.bicep` files in a directory.
     -a---          2021-01-16    21:38           3062 subnet.json
     -a---          2021-01-08    14:01            819 vnet.bicep
     -a---          2021-01-16    21:38           1861 vnet.json
-    ```
+{% endhighlight %}
 
 ### Generate ARM Template parameter files
 
@@ -92,18 +92,18 @@ When you run `bicep build` to compile your `.bicep` files to ARM Templates you w
 
 1. If we look at the `vnet.bicep` file we compiled earlier. It has the following parameters defined:
 
-    ```bicep
+{% highlight %}
     param location string = resourceGroup().location
     param vnetname string = 'super-duper-vnet'
     param addressprefix string = '10.0.0.0/24'
     param dnsservers array
     param enableDdosProtection bool = false
     param ddosProtectionPlanID string = ''
-    ```
+{% endhighlight %}
 
 2. If we compile `vnet.bicep` again using the `-GenerateParameterFile` switch we will get parameter file called `vnet.parameters.json`.
 
-    ```powershell
+{% highlight powershell %}
     PS C:\> Invoke-BicepBuild -Path C:\Bicep\Modules\vnet.bicep -GenerateParameterFile
     PS C:\> Get-ChildItem -Path C:\Bicep\Modules\ vnet*
     
@@ -114,13 +114,13 @@ When you run `bicep build` to compile your `.bicep` files to ARM Templates you w
     -a---          2021-01-16    21:49            851 vnet.bicep
     -a---          2021-01-16    21:49           1915 vnet.json
     -a---          2021-01-16    21:49            499 vnet.parameters.json
-    ```
+{% endhighlight %}
 
 3. And if we look inside `vnet.parameters.json` it's a valid parameter file.
 
     > NOTE: All default values have been added to the parameter file except for `resourceGroup().location` used as default value for the `vnetname` parameter. Since ARM template functions can´t be used in parameter files they are replace with empty strings instead.
 
-    ```json
+{% highlight JSON %}
     {
       "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
       "contentVersion": "1.0.0.0",
@@ -145,7 +145,7 @@ When you run `bicep build` to compile your `.bicep` files to ARM Templates you w
         }
       }
     }
-    ```
+{% endhighlight %}
 
 ## ConvertTo-Bicep
 
@@ -157,7 +157,7 @@ Here´s how you can decompile all `.json` files in a directory.
 
 1. You have a directory with multiple ARM Templates.
 
-    ```powershell
+{% highlight powershell %}
     PS C:\> Get-ChildItem -Path C:\ARMTemplates\
     
         Directory: C:\ARMTemplates
@@ -170,17 +170,17 @@ Here´s how you can decompile all `.json` files in a directory.
     -a---          2021-01-16    21:38           1249 routetable.json
     -a---          2021-01-16    21:38           3062 subnet.json
     -a---          2021-01-16    21:49           1915 vnet.json
-    ```
+{% endhighlight %}
 
 2. You can now decompile them all to `.bicep` files using `ConvertTo-Bicep -Path C:\ARMTemplates`
 
-    ```powershell
+{% highlight powershell %}
     PS C:\> ConvertTo-Bicep -Path C:\ARMTemplates
-    ```
+{% endhighlight %}
 
 3. When we look in the folder again we can see that `.bicep` files have been generated for each ARM Template.
 
-    ```powershell
+{% highlight powershell %}
     PS C:\> Get-ChildItem -Path C:\ARMTemplates\
     
         Directory: C:\ARMTemplates
@@ -199,7 +199,7 @@ Here´s how you can decompile all `.json` files in a directory.
     -a---          2021-01-16    21:38           3062 subnet.json
     -a---          2021-01-16    22:03            887 vnet.bicep
     -a---          2021-01-16    21:49           1915 vnet.json
-    ```
+{% endhighlight %}
 
 ## Get-BicepVersion
 
@@ -209,13 +209,13 @@ Here´s how you can decompile all `.json` files in a directory.
 
 1. To check the versions just run `Get-BicepVersion`
 
-    ```powershell
+{% highlight powershell %}
     PS C:\> Get-BicepVersion
     
     InstalledVersion LatestVersion
     ---------------- -------------
     0.2.212          0.2.212
-    ```
+{% endhighlight %}
 
 ## Install-BicepCLI
 
@@ -225,15 +225,15 @@ Here´s how you can decompile all `.json` files in a directory.
 
 1. To install Bicep CLI run `Install-BicepCLI`. If Bicep CLI is already installed a message will be outputted in the terminal.
 
-    ```powershell
+{% highlight powershell %}
     PS C:\> Install-BicepCLI
     The latest Bicep CLI Version is already installed.
-    ```
+{% endhighlight %}
     Or:
-    ```powershell
+{% highlight powershell %}
     PS C:\> Install-BicepCLI
     Bicep CLI is already installed, but there is a newer release available. Use Update-BicepCLI or Install-BicepCLI -Force to updated to the latest release
-    ```
+{% endhighlight %}
 
 ## Update-BicepCLI
 
@@ -243,10 +243,10 @@ Here´s how you can decompile all `.json` files in a directory.
 
 1. To update Bicep CLI run `Update-BicepCLI`. If the latest version of Bicep CLI is already installed a message will be outputted in the terminal.
 
-    ```powershell
+{% highlight powershell %}
     PS C:\> Update-BicepCLI
     You are already running the latest version of Bicep CLI.
-    ```
+{% endhighlight %}
 
 ## Bug report and feature request
 
