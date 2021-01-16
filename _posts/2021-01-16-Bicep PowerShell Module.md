@@ -58,7 +58,7 @@ Mode                 LastWriteTime         Length Name
 2. To compile all the files I can simply run `Invoke-BicepBuild` if the working directory is the same directory as where my bicep modules are located. I have all my bicep modules in a different directory than my working directory and I want to exclude `appgw.bicep` from compilation because it's still a work in progress and I know it will just generate a lot of build errors. I can then run `Invoke-BicepBuild -Path C:\Bicep\Modules -ExcludeFile appgw.bicep` to compile the files in the directory.
 
 {% highlight powershell %}
-PS C:\Bicep\Modules> Invoke-BicepBuild -Path 'C:\Bicep\Modules' -ExcludeFile 'appgw.bicep'
+Invoke-BicepBuild -Path 'C:\Bicep\Modules' -ExcludeFile 'appgw.bicep'
 {% endhighlight %}
 3. If we take a look inside the directory again we'll see that ARM templates have been created for each `.bicep` file except `appgw.bicep`.
 
