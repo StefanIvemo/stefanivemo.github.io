@@ -16,7 +16,7 @@ When writing this post the following commands have been implemented. For a updat
 - `Invoke-BicepBuild` - An equivalent to `bicep build` with some additional features.
   - Use the `-Path` switch to specify a folder with `.bicep` files in order to compile them all.
   - If you have work in progress in the folder that you've specified, you can use the `-ExcludeFile` parameter to exclude a file from compilation.
-  - Use the `-GenerateParameterFile` switch to generate ARM Template parameter files for the compiled `.bicep` file(s). 
+  - Use the `-GenerateParameterFile` switch to generate ARM Template parameter files for the compiled `.bicep` file(s).
 - `ConvertTo-Bicep` - An equivalent to `bicep decompile`.
   - Use the `-Path` switch to specify a folder with ARM Templates in `.json` format in order to decompile them all.
 - `Get-BicepVersion` - Compares the installed version of Bicep CLI with the latest release.
