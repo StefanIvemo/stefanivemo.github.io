@@ -40,49 +40,49 @@ Here´s how you can compile all `.bicep` files in a directory.
 
 1. In the directory `C:\Bicep\Modules` I have a couple of Bicep modules. 
 
-{% highlight powershell %}
-Get-ChildItem -Path 'C:\Bicep\Modules'
-    
-    Directory: C:\Bicep\Modules
-    
-Mode                 LastWriteTime         Length Name
-----                 -------------         ------ ----
--a---          2021-01-15    12:47          11872 appgw.bicep
--a---          2021-01-15    13:23            849 keyvault.bicep
--a---          2021-01-08    14:01            346 nsg.bicep
--a---          2021-01-15    14:14           1020 publicip.bicep
--a---          2021-01-08    14:01            464 routetable.bicep
--a---          2021-01-08    14:01           1491 subnet.bicep
--a---          2021-01-08    14:01            819 vnet.bicep
-{% endhighlight %}
+    {% highlight powershell %}
+    Get-ChildItem -Path 'C:\Bicep\Modules'
+        
+        Directory: C:\Bicep\Modules
+        
+    Mode                 LastWriteTime         Length Name
+    ----                 -------------         ------ ----
+    -a---          2021-01-15    12:47          11872 appgw.bicep
+    -a---          2021-01-15    13:23            849 keyvault.bicep
+    -a---          2021-01-08    14:01            346 nsg.bicep
+    -a---          2021-01-15    14:14           1020 publicip.bicep
+    -a---          2021-01-08    14:01            464 routetable.bicep
+    -a---          2021-01-08    14:01           1491 subnet.bicep
+    -a---          2021-01-08    14:01            819 vnet.bicep
+    {% endhighlight %}
 2. To compile all the files I can simply run `Invoke-BicepBuild` if the working directory is the same directory as where my bicep modules are located. I have all my bicep modules in a different directory than my working directory and I want to exclude `appgw.bicep` from compilation because it's still a work in progress and I know it will just generate a lot of build errors. I can then run `Invoke-BicepBuild -Path C:\Bicep\Modules -ExcludeFile appgw.bicep` to compile the files in the directory.
 
-{% highlight powershell %}
-Invoke-BicepBuild -Path 'C:\Bicep\Modules' -ExcludeFile 'appgw.bicep'
-{% endhighlight %}
+    {% highlight powershell %}
+    Invoke-BicepBuild -Path 'C:\Bicep\Modules' -ExcludeFile 'appgw.bicep'
+    {% endhighlight %}
 3. If we take a look inside the directory again we'll see that ARM templates have been created for each `.bicep` file except `appgw.bicep`.
 
-{% highlight powershell %}
-Get-ChildItem -Path 'C:\Bicep\Modules'
-    
-    Directory: C:\Bicep\Modules
-    
-Mode                 LastWriteTime         Length Name
-----                 -------------         ------ ----
--a---          2021-01-15    12:47          11872 appgw.bicep
--a---          2021-01-15    13:23            849 keyvault.bicep
--a---          2021-01-16    21:37           1702 keyvault.json
--a---          2021-01-08    14:01            346 nsg.bicep
--a---          2021-01-16    21:38           1034 nsg.json
--a---          2021-01-15    14:14           1020 publicip.bicep
--a---          2021-01-16    21:38           2089 publicip.json
--a---          2021-01-08    14:01            464 routetable.bicep
--a---          2021-01-16    21:38           1249 routetable.json
--a---          2021-01-08    14:01           1491 subnet.bicep
--a---          2021-01-16    21:38           3062 subnet.json
--a---          2021-01-08    14:01            819 vnet.bicep
--a---          2021-01-16    21:38           1861 vnet.json
-{% endhighlight %}
+    {% highlight powershell %}
+    Get-ChildItem -Path 'C:\Bicep\Modules'
+        
+        Directory: C:\Bicep\Modules
+        
+    Mode                 LastWriteTime         Length Name
+    ----                 -------------         ------ ----
+    -a---          2021-01-15    12:47          11872 appgw.bicep
+    -a---          2021-01-15    13:23            849 keyvault.bicep
+    -a---          2021-01-16    21:37           1702 keyvault.json
+    -a---          2021-01-08    14:01            346 nsg.bicep
+    -a---          2021-01-16    21:38           1034 nsg.json
+    -a---          2021-01-15    14:14           1020 publicip.bicep
+    -a---          2021-01-16    21:38           2089 publicip.json
+    -a---          2021-01-08    14:01            464 routetable.bicep
+    -a---          2021-01-16    21:38           1249 routetable.json
+    -a---          2021-01-08    14:01           1491 subnet.bicep
+    -a---          2021-01-16    21:38           3062 subnet.json
+    -a---          2021-01-08    14:01            819 vnet.bicep
+    -a---          2021-01-16    21:38           1861 vnet.json
+    {% endhighlight %}
 
 ### Generate ARM Template parameter files
 
