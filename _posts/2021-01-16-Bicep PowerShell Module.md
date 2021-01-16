@@ -243,7 +243,7 @@ Bicep CLI is already installed, but there is a newer release available. Use Upda
 
 ### Update Bicep CLI
 
-1. To update Bicep CLI run `Update-BicepCLI`. If the latest version of Bicep CLI is already installed a message will be outputted in the terminal.
+To update Bicep CLI run `Update-BicepCLI`. If the latest version of Bicep CLI is already installed a message will be outputted in the terminal.
 
 {% highlight powershell %}
 Update-BicepCLI
