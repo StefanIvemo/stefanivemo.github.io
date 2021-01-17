@@ -5,9 +5,9 @@ author: Stefan Ivemo
 summary: An introduction to the Bicep PowerShell module.
 ---
 
-As you may know I'm completely sold on [Bicep](https://github.com/Azure/bicep), I absolutely love using it! Since a while back I use to create all my templates for Azure Deployments (as long the features I need is supported in Bicep) and I'm super excited for the upcoming release of v0.3 that will give us the missing piece of the puzzle, copy loops!
+As you may know I'm completely sold on [Bicep](https://github.com/Azure/bicep), I absolutely love using it! Since a while back I use Bicep to create all my templates for Azure Deployments (as long the features I need is supported in Bicep) and I'm super excited for the upcoming release of v0.3 that will give us the missing piece of the puzzle, copy loops!
 
-Lately I've been spending a lot of time creating a bunch of Bicep modules that I re-use in my templates over and over again. When I've spent a couple of hours coding I usually end up with a folder containing multiple `.bicep` files that I need to compile running `bicep build`. But since `bicep build` doesn't have a `--all` switch or support wildcard characters on Windows (on OSX/Linux you can run `bicep build *.bicep`) I started using a simple PowerShell function to compile all `.bicep` files in a folder instead of compiling them one by one. After a couple of days using the function it escalated with more features and I decided to put together a PowerShell module that wraps Bicep CLI and share it with the community. And that's how the [Bicep PowerShell Module](https://github.com/StefanIvemo/BicepPowerShell) was born.
+Lately I've been spending a lot of time creating a bunch of Bicep modules that I re-use in my templates over and over again. When I've spent a couple of hours coding I usually end up with a folder containing multiple `.bicep` files that I need to compile running `bicep build`. But since `bicep build` doesn't have a `--all` switch or support wildcard characters on Windows (on OSX/Linux you can run `bicep build *.bicep`), I started using a simple PowerShell function to compile all `.bicep` files in a folder instead of compiling them one by one. After a couple of days using the function it escalated with more features and I decided to put together a PowerShell module that wraps Bicep CLI and share it with the community. And that's how the [Bicep PowerShell Module](https://github.com/StefanIvemo/BicepPowerShell) was born.
 
 ## Commands implemented
 
@@ -38,7 +38,7 @@ Lets take a look at some of the features available in `Invoke-BicepBuild`!
 ### Compile multiple files
 Here´s how you can compile all `.bicep` files in a directory.
 
-In the directory `C:\Bicep\Modules` I have a couple of Bicep modules. 
+If we take a look in the directory `C:\Bicep\Modules` we can see that I have a couple of Bicep files in it.
 
 {% highlight powershell %}
 Get-ChildItem -Path 'C:\Bicep\Modules'
@@ -56,13 +56,13 @@ Mode                 LastWriteTime         Length Name
 -a---          2021-01-08    14:01            819 vnet.bicep
 {% endhighlight %}
 
-To compile all the files I can simply run `Invoke-BicepBuild` if the working directory is the same directory as where my bicep modules are located. I have all my bicep modules in a different directory than my working directory and I want to exclude `appgw.bicep` from compilation because it's still a work in progress and I know it will just generate a lot of build errors. I can then run `Invoke-BicepBuild -Path C:\Bicep\Modules -ExcludeFile appgw.bicep` to compile the files in the directory.
+To compile all the files I can simply run `Invoke-BicepBuild` if the working directory is the same directory as where my bicep modules are located in. But I have all my bicep modules in a different directory than my working directory and I also want to exclude `appgw.bicep` from compilation, because it's still a work in progress and I know it will just generate a lot of build errors. I can then run `Invoke-BicepBuild -Path C:\Bicep\Modules -ExcludeFile appgw.bicep` to compile the files in the directory.
 
 {% highlight powershell %}
 Invoke-BicepBuild -Path 'C:\Bicep\Modules' -ExcludeFile 'appgw.bicep'
 {% endhighlight %}
 
-If we take a look inside the directory again we'll see that ARM templates have been created for each `.bicep` file except `appgw.bicep`.
+If we take a look inside the directory again we'll see that all `.bicep` files have been compiled to ARM templates except `appgw.bicep`.
 
 {% highlight powershell %}
 Get-ChildItem -Path 'C:\Bicep\Modules'
@@ -88,11 +88,11 @@ Mode                 LastWriteTime         Length Name
 
 ### Generate ARM Template parameter files
 
-When you run `bicep build` to compile your `.bicep` files to ARM Templates you will only get a template file. But you´ll probably end up creating a parameter file before you deploy the template. I've created the `-GenerateParameterFile` switch to save you some time. It will generate a parameter file containing all the parameters defined in the `.bicep` file and add any default values defined as value in the parameter file. Lets have a look at how it works.
+When you run `bicep build` to compile your `.bicep` files to ARM Templates you will only get a template file. But you´ll probably end up creating a parameter file before you deploy the template. I've created the `-GenerateParameterFile` switch to save you some time here. It will generate a parameter file containing all the parameters defined in the `.bicep` file and add any default values defined as value in the parameter file. Lets have a look at how it works.
 
 If we look at the `vnet.bicep` file we compiled earlier. It has the following parameters defined:
 
-{% highlight yaml %}
+{% highlight %}
 param location string = resourceGroup().location
 param vnetname string = 'super-duper-vnet'
 param addressprefix string = '10.0.0.0/24'
@@ -101,7 +101,7 @@ param enableDdosProtection bool = false
 param ddosProtectionPlanID string = ''
 {% endhighlight %}
 
-If we compile `vnet.bicep` again using the `-GenerateParameterFile` switch we will get parameter file called `vnet.parameters.json`.
+If we compile `vnet.bicep` again using the `-GenerateParameterFile` switch we will now get parameter file called `vnet.parameters.json` as well.
 
 {% highlight powershell %}
 Invoke-BicepBuild -Path 'C:\Bicep\Modules\vnet.bicep' -GenerateParameterFile
@@ -155,7 +155,7 @@ The only feature added to `ConvertTo-Bicep` is the possibility to decompile mult
 
 Here´s how you can decompile all `.json` files in a directory.
 
-You have a directory with multiple ARM Templates.
+We have a directory with multiple ARM Templates in it.
         
 {% highlight powershell %}
 Get-ChildItem -Path 'C:\ARMTemplates\'
@@ -172,13 +172,13 @@ Mode                 LastWriteTime         Length Name
 -a---          2021-01-16    21:49           1915 vnet.json
 {% endhighlight %}
 
-You can now decompile them all to `.bicep` files using `ConvertTo-Bicep -Path C:\ARMTemplates`
+We can now decompile them all to `.bicep` files using `ConvertTo-Bicep -Path C:\ARMTemplates`
 
 {% highlight powershell %}
 ConvertTo-Bicep -Path 'C:\ARMTemplates'
 {% endhighlight %}
 
-When we look in the folder again we can see that `.bicep` files have been generated for each ARM Template.
+When we look in the folder again we can see that `.bicep` files have been generated for each ARM Template in the directory.
 
 {% highlight powershell %}
 Get-ChildItem -Path 'C:\ARMTemplates\'
