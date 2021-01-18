@@ -262,7 +262,11 @@ If you like the Bicep PowerShell module and want to contribute you are very much
 
 That's it! Hope you like it!
 
-
+<br>
+<br>
+<div class="commenttext">
+    To write a comment click "Sign in to comment" and use your GitHub account, a GitHub issue will be created for this post.
+</div>
 <script src="https://utteranc.es/client.js"
         repo="StefanIvemo/stefanivemo.github.io"
         issue-term="pathname"

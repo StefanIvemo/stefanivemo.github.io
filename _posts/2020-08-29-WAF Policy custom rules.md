@@ -135,7 +135,11 @@ Summary
 That's it! In my world my first approach should have been enough to control the inbound traffic. No header should be treated the same ways as a non matching header. Anyway I was able to create a workaround, hope it will help you someday!
 
 
-
+<br>
+<br>
+<div class="commenttext">
+    To write a comment click "Sign in to comment" and use your GitHub account, a GitHub issue will be created for this post.
+</div>
 <script src="https://utteranc.es/client.js"
         repo="StefanIvemo/stefanivemo.github.io"
         issue-term="pathname"

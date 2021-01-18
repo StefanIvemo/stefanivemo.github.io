@@ -60,6 +60,11 @@ Hope you find this useful! Stay tuned for a deep dive into how to deploy Virtual
 
 <a class="github-button" href="https://github.com/StefanIvemo/vwan-playground" aria-label="Azure Virtual WAN Playground!">Azure Virtual Wan Playground!</a>
 
+<br>
+<br>
+<div class="commenttext">
+    To write a comment click "Sign in to comment" and use your GitHub account, a GitHub issue will be created for this post.
+</div>
 <script src="https://utteranc.es/client.js"
         repo="StefanIvemo/stefanivemo.github.io"
         issue-term="pathname"

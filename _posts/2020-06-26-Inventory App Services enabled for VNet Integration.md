@@ -69,6 +69,11 @@ Summary
 ------
 Hope you find the script useful, happy inventory!
 
+<br>
+<br>
+<div class="commenttext">
+    To write a comment click "Sign in to comment" and use your GitHub account, a GitHub issue will be created for this post.
+</div>
 <script src="https://utteranc.es/client.js"
         repo="StefanIvemo/stefanivemo.github.io"
         issue-term="pathname"

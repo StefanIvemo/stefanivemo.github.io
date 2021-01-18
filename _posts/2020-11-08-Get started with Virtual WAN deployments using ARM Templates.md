@@ -478,6 +478,11 @@ That's all for this post! There are some other resources available for Virtual W
 
 <a class="github-button" href="https://github.com/StefanIvemo/vwan-playground/blob/main/playground/main.json" aria-label="Full ARM Template Example">Full ARM Template Example</a>
 
+<br>
+<br>
+<div class="commenttext">
+    To write a comment click "Sign in to comment" and use your GitHub account, a GitHub issue will be created for this post.
+</div>
 <script src="https://utteranc.es/client.js"
         repo="StefanIvemo/stefanivemo.github.io"
         issue-term="pathname"
