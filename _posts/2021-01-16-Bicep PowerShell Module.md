@@ -234,7 +234,8 @@ Or:
 
 {% highlight powershell %}
 Install-BicepCLI
-Bicep CLI is already installed, but there is a newer release available. Use Update-BicepCLI or Install-BicepCLI -Force to updated to the latest release
+Bicep CLI is already installed, but there is a newer release available. Use Update-BicepCLI  
+or Install-BicepCLI -Force to updated to the latest release
 {% endhighlight %}
 
 ## Update-BicepCLI
