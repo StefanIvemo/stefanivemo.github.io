@@ -92,7 +92,7 @@ When you run `bicep build` to compile your `.bicep` files to ARM Templates you w
 
 If we look at the `vnet.bicep` file we compiled earlier. It has the following parameters defined:
 
-{% highlight yaml %}
+{% highlight console %}
 param location string = resourceGroup().location
 param vnetname string = 'super-duper-vnet'
 param addressprefix string = '10.0.0.0/24'
