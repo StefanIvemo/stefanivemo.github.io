@@ -396,12 +396,12 @@ resource publicIPs 'Microsoft.Network/publicIPAddresses@2020-08-01' = [for i in 
 var fwIpConfigurations = [for i in range(1, publicIpCount): {
   name: '${fwName}-vnetIPConf-${i}'
   properties: {
-    subnet: i == 1 ? {
-      id: subnetId
-    } : json('null')
     publicIPAddress: {
       id: publicIPs[i-1].id
     }
+    subnet: i == 1 ? {
+      id: subnetId
+    } : json('null')
   }
 }]
 
