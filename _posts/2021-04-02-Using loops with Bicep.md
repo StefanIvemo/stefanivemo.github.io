@@ -21,9 +21,9 @@ var massiveBiceps = [
   'Dolph'
 ]
 
-resource biceps 'my.provider/type@2021-03-01' = [for name in massiveBiceps: {
+resource biceps 'my.provider/strongMan@2021-03-01' = [for name in massiveBiceps: {
   name: name
-  location: resourceGroup().location    
+  location: resourceGroup().location
 }]
 
 {% endhighlight %}
