@@ -9,7 +9,7 @@ With 💪[Bicep](https://github.com/Azure/bicep) v0.3 we finally got loop suppor
 
 # Loops
 
-With loops we can iterate over an array of objects to create multiple resources based on the objects in our array. We can also use loops to set an array property, loop outputs and variables. We can also use loops with module deployments.
+With loops we can iterate over an array of objects to create multiple resources based on the objects in our array. We can also use loops to set an array property, loop outputs and variables. It's even possible use loops with module deployments.
 
 A loop is declared using the for-expression and we can iterate over arrays declared by a parameter, variable or using the `range()` function.
 
