@@ -25,6 +25,7 @@ resource biceps 'my.provider/type@2021-03-01' = [for name in massiveBiceps: {
   name: name
   location: resourceGroup().location    
 }]
+
 ```
 
 Inside the loop body a new scope is created. Inside this inner-scope we can access any identifier declared outside of this scope, but any identifier declared in the inner-scope will not be available outside of it. Any resource, variable or parameter declared at the outer-scope may be used within a loop body. We can even use nested loops and use filtering via the `if` keyword.
@@ -56,6 +57,7 @@ resource virtualNetworks 'Microsoft.Network/virtualNetworks@2020-06-01' = [for v
     }
   }
 }]
+
 ```
 
 It is also possible to use loops with modules. In this example we are iterating over the same `vnets` variable array as above, but instead of passing the values from the current array index to the properties of the resource, they are used in the `params` section of the module.
@@ -79,6 +81,7 @@ module virtualNetwork 'modules/virtualNetwork.bicep' = [for vnet in vnets: {
     addressPrefix: vnet.addressPrefix    
   }
 }]
+
 ```
 
 ## 2. Filtered resource loops
@@ -110,6 +113,7 @@ resource virtualNetworks 'Microsoft.Network/virtualNetworks@2020-06-01' = [for v
     }
   }
 }]
+
 ```
 
 ## 3. Loop index
@@ -128,6 +132,7 @@ resource virtualNetworks 'Microsoft.Network/virtualNetworks@2020-06-01' = [for i
     }
   }
 }]
+
 ```
 
 You can also get the index when iterating over an array of objects. Looking at the example below there is an array variable called `vnets` with three objects. Within the loop body, `vnet` stores the current element from the array and `i` stores the 0-based index of the current array element. Both are then referenced from within the loop body. Since the index is 0-based when iterating over an array of objects I've just added `+1` to the index (`${i+1}`) to make sure that my first VNet name gets the sequence number 1 instead of 0.
@@ -159,6 +164,7 @@ resource vnet 'Microsoft.Network/virtualNetworks@2020-06-01' = [for (vnet, i) in
     }
   }
 }]
+
 ```
 
 ## 4. Array Property Loop
@@ -202,6 +208,7 @@ resource vnet 'Microsoft.Network/virtualNetworks@2020-06-01' = {
     }]
   }
 }
+
 ```
 
 ## 5. Nested Loops
@@ -257,6 +264,7 @@ resource vnet 'Microsoft.Network/virtualNetworks@2020-06-01' = [for vnet in vnet
     }]
   }
 }]
+
 ```
 
 ## 6. Batch size
@@ -278,6 +286,7 @@ resource vnet 'Microsoft.Network/virtualNetworks@2020-06-01' = [for i in range(1
     }
   }
 }]
+
 ```
 
 ## 7. Output Loops
@@ -336,6 +345,7 @@ var biggestBicepsTopList = [for (name, i) in massiveBiceps: {
     position: i
     contender: name
 }]
+
 ```
 
 Let's look at an Azure Firewall deployment where the number of public IPs is based on the integer parameter `publicIpCount`. The `ipConfigurations` array property in an Azure Firewall consists of one object per IP configuration, where the first IP configuration is referencing both the resourceId to the `AzureFirewallSubnet` in our Virtual Network, and also the resourceId to the first public IP address assigned to the Firewall. For all additional public IPs I want to add to my Firewall I only specify the public IP resourceId in the array object. The `ipConfigurations` array will look like this:
@@ -362,6 +372,7 @@ ipConfigurations: [
   }
 }
 ]
+
 ```
 
 Here's the full example of an Azure Firewall deployment using variable loops (existing VNet):
@@ -405,11 +416,14 @@ resource firewall 'Microsoft.Network/azureFirewalls@2020-06-01' = {
     ipConfigurations: fwIpConfigurations
   }
 }
+
 ```
 
 # Summary
 
 That was all I had about loops for now, hope you liked it! Who knows, another post with a massive Bicep example on the loop topic might show up here in a couple of weeks.
+
+All examples in this post can be found here: <a class="github-button" href="https://github.com/StefanIvemo/BicepThings/tree/main/Loops" aria-label="StefanIvemo/BicepThings on GitHub">All examples</a>
 
 
 <br>
