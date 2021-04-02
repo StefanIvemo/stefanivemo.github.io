@@ -342,7 +342,7 @@ var massiveBiceps = [
 ]
 
 var biggestBicepsTopList = [for (name, i) in massiveBiceps: {
-    position: i
+    position: i+1
     contender: name
 }]
 
