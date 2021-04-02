@@ -355,11 +355,11 @@ ipConfigurations: [
 {
   name: 'ipconfig1'
   properties: {
-    subnet: {
-      id: '/subscriptions/<subscriptionId>/resourceGroups/<resourcegroup>/providers/Microsoft.Network/virtualNetworks/steffes-vnet/subnets/AzureFirewallSubnet'
-    }
     publicIPAddress: {
       id: '/subscriptions/<subscriptionId>/resourceGroups/<resourcegroup>/providers/Microsoft.Network/publicIPAddresses/steffes-fw-publicip-1'
+    }
+    subnet: {
+      id: '/subscriptions/<subscriptionId>/resourceGroups/<resourcegroup>/providers/Microsoft.Network/virtualNetworks/steffes-vnet/subnets/AzureFirewallSubnet'
     }
   }
 }
