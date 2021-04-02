@@ -14,7 +14,7 @@ With loops we can iterate over an array of objects to create multiple resources 
 A loop is declared using the for-expression and we can iterate over arrays declared by a parameter, variable or using the `range()` function.
 
 For-expression example:
-```
+{% highlight bicep %}
 var massiveBiceps = [
   'Arnold'
   'Sylvester'
@@ -26,7 +26,7 @@ resource biceps 'my.provider/type@2021-03-01' = [for name in massiveBiceps: {
   location: resourceGroup().location    
 }]
 
-```
+{% endhighlight %}
 
 Inside the loop body a new scope is created. Inside this inner-scope we can access any identifier declared outside of this scope, but any identifier declared in the inner-scope will not be available outside of it. Any resource, variable or parameter declared at the outer-scope may be used within a loop body. We can even use nested loops and use filtering via the `if` keyword.
 
