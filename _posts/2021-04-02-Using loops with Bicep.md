@@ -423,7 +423,8 @@ resource firewall 'Microsoft.Network/azureFirewalls@2020-06-01' = {
 
 That was all I had about loops for now, hope you liked it! Who knows, another post with a massive Bicep example on the loop topic might show up here in a couple of weeks.
 
-All examples in this post can be found here: <a class="github-button" href="https://github.com/StefanIvemo/BicepThings/tree/main/Loops" aria-label="StefanIvemo/BicepThings on GitHub">All examples</a>
+All examples in this post can be found here: 
+<a class="github-button" href="https://github.com/StefanIvemo/BicepThings/tree/main/Loops" aria-label="StefanIvemo/BicepThings on GitHub">All examples</a>
 
 
 <br>
