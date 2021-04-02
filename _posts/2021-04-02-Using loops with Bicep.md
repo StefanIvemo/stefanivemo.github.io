@@ -400,7 +400,7 @@ var fwIpConfigurations = [for i in range(1, publicIpCount): {
       id: subnetId
     } : json('null')
     publicIPAddress: {
-      id: publicIPs[i].id
+      id: publicIPs[i-1].id
     }
   }
 }]
