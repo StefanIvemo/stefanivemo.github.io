@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Using loops with Bicep
+title: Using loops with Bicep! 💪
 author: Stefan Ivemo
 summary: In this post I cover multiple ways to use copy loops with Bicep!
 ---
