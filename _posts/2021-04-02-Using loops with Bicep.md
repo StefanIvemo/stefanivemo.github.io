@@ -33,7 +33,7 @@ Inside the loop body a new scope is created. Inside this inner-scope we can acce
 
 Lets start with a simple and common way to use loops in templates and create some Virtual Networks. We have an array variable called `vnets`, it has two objects, both with a `name` and `addressPrefix` key/value pair. We are iterating over the `vnets` variable array and for each loop iteration we create a Virtual Network with the `name` and `addressPrefix` from the current array item. Pretty simple and straight forward.
 
-```bicep
+```
 var vnets = [
   {
     name: 'landingzone-1-vnet'
