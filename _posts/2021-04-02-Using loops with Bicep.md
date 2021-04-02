@@ -5,7 +5,7 @@ author: Stefan Ivemo
 summary: In this post I cover multiple ways to use copy loops with Bicep!
 ---
 
-With 💪[Bicep](https://github.com/Azure/bicep) v0.3 we finally got loop support and now we can start do some really cool stuff using Bicep. I must say I really like the new loop syntax, it's clean, easy to read and removes a lot of the complexity we did see in ARM template copy loops. This post is dedicated to copy loops where I will show some different examples on how you can use loops in Bicep. The Bicep Loops specification can be [found here](https://github.com/Azure/bicep/blob/main/docs/spec/loops.md).
+With 💪[Bicep](https://github.com/Azure/bicep) v0.3 we finally got loop support and now we can start to do some really cool stuff using Bicep. I must say I really like the new loop syntax, it's clean, easy to read and removes a lot of the complexity we did see in ARM template copy loops. This post is dedicated to copy loops where I will show some different examples on how you can use loops in Bicep. The Bicep Loops specification can be [found here](https://github.com/Azure/bicep/blob/main/docs/spec/loops.md).
 
 # Loops
 
