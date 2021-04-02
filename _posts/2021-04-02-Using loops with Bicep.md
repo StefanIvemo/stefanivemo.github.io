@@ -356,10 +356,10 @@ ipConfigurations: [
   name: 'ipconfig1'
   properties: {
     subnet: {
-      id: 'sdfasdf'
+      id: '/subscriptions/<subscriptionId>/resourceGroups/<resourcegroup>/providers/Microsoft.Network/virtualNetworks/steffes-vnet/subnets/AzureFirewallSubnet'
     }
     publicIPAddress: {
-      id: 'sdfasdf'
+      id: '/subscriptions/<subscriptionId>/resourceGroups/<resourcegroup>/providers/Microsoft.Network/publicIPAddresses/steffes-fw-publicip-1'
     }
   }
 }
@@ -367,7 +367,7 @@ ipConfigurations: [
   name: 'ipconfig2'
   properties: {
     publicIPAddress: {
-      id: 'sdfasdf'
+      id: '/subscriptions/<subscriptionId>/resourceGroups/<resourcegroup>/providers/Microsoft.Network/publicIPAddresses/steffes-fw-publicip-2'
     }
   }
 }
