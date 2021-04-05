@@ -35,25 +35,33 @@ Lets create a custom rule with the following settings:
 Below is how the rule is created using PowerShell:
 
 {% highlight powershell %}
- $variable = New-AzApplicationGatewayFirewallMatchVariable `
-   -VariableName RequestHeaders `
-   -Selector Content-Type
+$variableParams = @{
+    VariableName = 'RequestHeaders'
+    Selector     = 'Content-Type'
+}
 
-$condition = New-AzApplicationGatewayFirewallCondition `
-   -MatchVariable $variable `
-   -Operator Equal `
-   -MatchValue "application/secret-request" `
-   -Transform Lowercase `
-   -NegationCondition $true
+$variable = New-AzApplicationGatewayFirewallMatchVariable @variableParams
 
-$rule = New-AzApplicationGatewayFirewallCustomRule `
-   -Name DenyNonSecretRequests `
-   -Priority 10 `
-   -RuleType MatchRule `
-   -MatchCondition $condition `
-   -Action Block
+$conditionParams = @{
+    MatchVariable     = $variable
+    Operator          = 'Equal'
+    MatchValue        = 'application/secret-request' 
+    Transform         = 'Lowercase'
+    NegationCondition = $true
+}
+
+$condition = New-AzApplicationGatewayFirewallCondition @conditionParams
+   
+$rule = @{
+    Name           = 'DenyNonSecretRequests'
+    Priority       = 10
+    RuleType       = 'MatchRule'
+    MatchCondition = $condition
+    Action         = 'Block'
+}
+
+New-AzApplicationGatewayFirewallCustomRule @rule
 {% endhighlight %}
-
 
 With the rule in-place lets perform some tests to see it in action. 
 
@@ -83,39 +91,57 @@ In order to reach my goal, I had to change my approach a bit. Once a custom rule
 Here are the new rules I created:
 
 {% highlight powershell %}
-$variable1 = New-AzApplicationGatewayFirewallMatchVariable `
-   -VariableName RequestHeaders `
-   -Selector Content-Type
+$variable1Params = @{
+    VariableName = 'RequestHeaders' 
+    Selector     = 'Content-Type'
+}
 
-$variable2 = New-AzApplicationGatewayFirewallMatchVariable `
-   -VariableName RemoteAddr
- 
-$condition1 = New-AzApplicationGatewayFirewallCondition `
-   -MatchVariable $variable1 `
-   -Operator Equal `
-   -MatchValue "application/secret-request" `
-   -Transform Lowercase `
-   -NegationCondition $false
+$variable1 = New-AzApplicationGatewayFirewallMatchVariable @variable1Params
 
-$condition2 = New-AzApplicationGatewayFirewallCondition `
-   -MatchVariable $variable2 `
-   -Operator IPMatch `
-   -MatchValue "127.0.0.1" `
-   -NegationCondition $true
+$variable2Params = @{
+    VariableName = 'RemoteAddr'
+}
 
-$rule1 = New-AzApplicationGatewayFirewallCustomRule `
-   -Name AllowSecretRequests `
-   -Priority 10 `
-   -RuleType MatchRule `
-   -MatchCondition $condition1 `
-   -Action Allow
+$variable2 = New-AzApplicationGatewayFirewallMatchVariable @variable2Params
+
+$condition1Params = @{
+    MatchVariable     = $variable1
+    Operator          = 'Equal'
+    MatchValue        = "application/secret-request"
+    Transform         = 'Lowercase'
+    NegationCondition = $false
+}
+
+$condition1 = New-AzApplicationGatewayFirewallCondition @condition1Params
+
+$condition2Params = @{
+    MatchVariable     = $variable2
+    Operator          = 'IPMatch'
+    MatchValue        = "127.0.0.1"
+    NegationCondition = $true
+}
+
+$condition2 = New-AzApplicationGatewayFirewallCondition @condition2Params
+
+$rule1Params = @{
+    Name           = 'AllowSecretRequests'
+    Priority       = 10
+    RuleType       = 'MatchRule'
+    MatchCondition = $condition1
+    Action         = 'Allow'
+}
+
+New-AzApplicationGatewayFirewallCustomRule @rule1Params
+
+$rule2Params = @{
+    Name           = 'DenyAllTraffic'
+    Priority       = 20
+    RuleType       = 'MatchRule'
+    MatchCondition = $condition2
+    Action         = 'Block' 
+}
    
-$rule2 = New-AzApplicationGatewayFirewallCustomRule `
-   -Name DenyAllTraffic `
-   -Priority 20 `
-   -RuleType MatchRule `
-   -MatchCondition $condition2 `
-   -Action Block   
+New-AzApplicationGatewayFirewallCustomRule @rule2Params  
 {% endhighlight %}
 
 
