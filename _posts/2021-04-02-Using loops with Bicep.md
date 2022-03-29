@@ -22,55 +22,11 @@ Inside the loop body a new scope is created. Inside this inner-scope we can acce
 
 Lets start with a simple and common way to use loops in templates and create some Virtual Networks. We have an array variable called `vnets`, it has two objects, both with a `name` and `addressPrefix` key/value pair. We are iterating over the `vnets` variable array and for each loop iteration we create a Virtual Network with the `name` and `addressPrefix` from the current array item. Pretty simple and straight forward.
 
-{% highlight bicep %}
-var vnets = [
-  {
-    name: 'landingzone-1-vnet'
-    addressPrefix: '10.1.0.0/24'
-  }
-  {
-    name: 'landingzone-2-vnet'
-    addressPrefix: '10.2.0.0/24'
-  }
-]
-
-resource virtualNetworks 'Microsoft.Network/virtualNetworks@2020-06-01' = [for vnet in vnets: {
-  name: vnet.name
-  location: resourceGroup().location
-  properties: {
-    addressSpace: {
-      addressPrefixes: [
-        vnet.addressPrefix
-      ]
-    }
-  }
-}]
-
-{% endhighlight %}
+<script src="https://gist.github.com/StefanIvemo/d2c6ac6113e8c279406fb816717837c5.js"></script>
 
 It is also possible to use loops with modules. In this example we are iterating over the same `vnets` variable array as above, but instead of passing the values from the current array index to the properties of the resource, they are used in the `params` section of the module.
 
-{% highlight bicep %}
-var vnets = [
-  {
-    name: 'landingzone-1-vnet'
-    addressPrefix: '10.1.0.0/24'
-  }
-  {
-    name: 'landingzone-2-vnet'
-    addressPrefix: '10.2.0.0/24'
-  }
-]
-
-module virtualNetwork 'modules/virtualNetwork.bicep' = [for vnet in vnets: {
-  name: '${vnet.name}-deploy'
-  params: {
-    vnetName: vnet.name
-    addressPrefix: vnet.addressPrefix
-  }
-}]
-
-{% endhighlight %}
+<script src="https://gist.github.com/StefanIvemo/582a147399e776c4d2a7ce84221820e8.js"></script>
 
 ## 2. Filtered resource loops
 
