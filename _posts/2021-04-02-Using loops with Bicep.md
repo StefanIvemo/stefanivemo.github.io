@@ -32,84 +32,17 @@ It is also possible to use loops with modules. In this example we are iterating 
 
 We can also use filters for our loops if we want to exclude objects that doesn't meet our conditions by using the `if` keyword. Filters must be expressions that evaluate to a boolean value (more info on expression can be [found here](https://github.com/Azure/bicep/blob/main/docs/spec/expressions.md)). In this example I've added a property to the objects in my array named `enabled` with the values `true` and `false`. This example will create a single Virtual Network named `landingzone-1-vnet` since it's the only one that meet my condition.
 
-{% highlight bicep %}
-var vnets = [
-  {
-    name: 'landingzone-1-vnet'
-    addressPrefix: '10.1.0.0/24'
-    enabled: true
-  }
-  {
-    name: 'landingzone-2-vnet'
-    addressPrefix: '10.2.0.0/24'
-    enabled: false
-  }
-]
-
-resource virtualNetworks 'Microsoft.Network/virtualNetworks@2020-06-01' = [for vnet in vnets: if(vnet.enabled) {
-  name: vnet.name
-  location: resourceGroup().location
-  properties: {
-    addressSpace: {
-      addressPrefixes: [
-        vnet.addressPrefix
-      ]
-    }
-  }
-}]
-
-{% endhighlight %}
+<script src="https://gist.github.com/StefanIvemo/beebb7ef5ffec548fa6ba797acafd1b0.js"></script>
 
 ## 3. Loop index
 
 We have multiple ways of working with the loop index. The first way to write an index-based loop is to use the `range()` function. The range function creates an array of integers from a starting integer, and containing the number of items we declare for the `count` parameter (`range(startIndex, count)`). The `startIndex` parameter defines the first integer in the array, and `count` the number of integers in the array. In the example below we´re using `range(1,4)`, this means that the first integer in the array will be 1 and we want to count to 4 integers. This example will create 4 Virtual Networks where we use the current loop index (`i`) in both the name and addressPrefix.
 
-{% highlight bicep %}
-resource virtualNetworks 'Microsoft.Network/virtualNetworks@2020-06-01' = [for i in range(1,4): {
-  name: 'landingzone-${i}-vnet'
-  location: resourceGroup().location
-  properties: {
-    addressSpace: {
-      addressPrefixes: [
-        '10.${i}.0.0/24'
-      ]
-    }
-  }
-}]
-
-{% endhighlight %}
+<script src="https://gist.github.com/StefanIvemo/7e520153821f7b95368321718ed3314e.js"></script>
 
 You can also get the index when iterating over an array of objects. Looking at the example below there is an array variable called `vnets` with three objects. Within the loop body, `vnet` stores the current element from the array and `i` stores the 0-based index of the current array element. Both are then referenced from within the loop body. Since the index is 0-based when iterating over an array of objects I've just added `+1` to the index (`${i+1}`) to make sure that my first VNet name gets the sequence number 1 instead of 0.
 
-{% highlight bicep %}
-var vnets = [
-  {
-    namePrefix: 'sandbox'
-    addressPrefix: '10.1.0.0/24'
-  }
-  {
-    namePrefix: 'sandbox'
-    addressPrefix: '10.2.0.0/24'
-  }
-  {
-    namePrefix: 'sandbox'
-    addressPrefix: '10.3.0.0/24'
-  }
-]
-
-resource vnet 'Microsoft.Network/virtualNetworks@2020-06-01' = [for (vnet, i) in vnets: {
-  name: '${vnet.namePrefix}-${i+1}-vnet'
-  location: resourceGroup().location
-  properties: {
-    addressSpace: {
-      addressPrefixes: [
-        vnet.addressPrefix
-      ]
-    }
-  }
-}]
-
-{% endhighlight %}
+<script src="https://gist.github.com/StefanIvemo/87b7c53b58f0e2991a4abc2e6d135347.js"></script>
 
 ## 4. Array Property Loop
 
@@ -119,97 +52,13 @@ Array properties inside a resource declaration can be defined using loops, and t
 
 So, how do we use property loops then? In this example we create one Virtual Network and three subnets using a property loop. On each loop iteration, the `subnets` property of the Virtual Network is set to the current element of the array.
 
-{% highlight bicep %}
-var subnets = [
-  {
-    name: 'frontend'
-    subnetPrefix: '10.1.0.0/26'
-  }
-  {
-    name: 'backend'
-    subnetPrefix: '10.1.0.64/26'
-  }
-  {
-    name: 'appservice'
-    subnetPrefix: '10.1.0.128/26'
-  }
-]
-
-resource vnet 'Microsoft.Network/virtualNetworks@2020-06-01' = {
-  name: 'sandbox-vnet'
-  location: resourceGroup().location
-  properties: {
-    addressSpace: {
-      addressPrefixes: [
-        '10.1.0.0/24'
-      ]
-    }
-    subnets: [for subnet in subnets: {
-      name: subnet.name
-      properties: {
-        addressPrefix: subnet.subnetPrefix
-      }
-    }]
-  }
-}
-
-{% endhighlight %}
+<script src="https://gist.github.com/StefanIvemo/8846cee7863fd3e898d773cb0443eea6.js"></script>
 
 ## 5. Nested Loops
 
 It is also possible to use copy loops inside another loop. In the example below we are iterating over the array parameter `vnets` to create multiple Virtual Networks, and then for each Virtual Network we are also creating the subnets with another nested copy loop.
 
-{% highlight bicep %}
-var vnets = [
-  {
-    name: 'landingzone-1-vnet'
-    addressPrefix: '10.1.0.0/24'
-    subnets: [
-      {
-        name: 'frontend'
-        subnetPrefix: '10.1.0.0/26'
-      }
-      {
-        name: 'backend'
-        subnetPrefix: '10.1.0.64/26'
-      }
-      {
-        name: 'appservice'
-        subnetPrefix: '10.1.0.128/26'
-      }
-    ]
-  }
-  {
-    name: 'landingzone-2-vnet'
-    addressPrefix: '10.2.0.0/24'
-    subnets: [
-      {
-        name: 'frontend'
-        subnetPrefix: '10.2.0.0/26'
-      }
-    ]
-  }
-]
-
-resource vnet 'Microsoft.Network/virtualNetworks@2020-06-01' = [for vnet in vnets: {
-  name: vnet.name
-  location: resourceGroup().location
-  properties: {
-    addressSpace: {
-      addressPrefixes: [
-        vnet.addressPrefix
-      ]
-    }
-    subnets: [for subnet in vnet.subnets: {
-      name: subnet.name
-      properties: {
-        addressPrefix: subnet.subnetPrefix
-      }
-    }]
-  }
-}]
-
-{% endhighlight %}
+<script src="https://gist.github.com/StefanIvemo/1f6b1737fd86ecacf9f6cf485cc08186.js"></script>
 
 ## 6. Batch size
 
@@ -217,21 +66,7 @@ Batch size can be used to control the order that resources are created when usin
 
 The following example deploys 9 Virtual Networks, 3 at a time:
 
-{% highlight bicep %}
-@batchSize(3)
-resource vnet 'Microsoft.Network/virtualNetworks@2020-06-01' = [for i in range(1,9): {
-  name: 'landingzone-${i}-vnet'
-  location: resourceGroup().location
-  properties: {
-    addressSpace: {
-      addressPrefixes: [
-        '10.${i}.0.0/24'
-      ]
-    }
-  }
-}]
-
-{% endhighlight %}
+<script src="https://gist.github.com/StefanIvemo/766adfda4ec353b9f6eee69de6063b32.js"></script>
 
 ## 7. Output Loops
 
@@ -239,129 +74,21 @@ It's not only for resources and properties that we want to use copy loops, somet
 
 In the example below I will create 2 Virtual Networks and output `name`, `resourceId` and `addressPrefixes` for each deployed VNet.
 
-{% highlight bicep %}
-var vnets = [
-  {
-    name: 'landingzone-1-vnet'
-    addressPrefix: '10.1.0.0/24'
-  }
-  {
-    name: 'landingzone-2-vnet'
-    addressPrefix: '10.2.0.0/24'
-  }
-]
-
-resource virtualNetworks 'Microsoft.Network/virtualNetworks@2020-06-01' = [for vnet in vnets: {
-  name: vnet.name
-  location: resourceGroup().location
-  properties: {
-    addressSpace: {
-      addressPrefixes: [
-        vnet.addressPrefix
-      ]
-    }
-  }
-}]
-
-output vnets array = [for (vnet, i) in vnets: {
-  name: virtualNetworks[i].name
-  resourceId: virtualNetworks[i].id
-  addressPrefixes: virtualNetworks[i].properties.addressSpace.addressPrefixes
-}]
-
-{% endhighlight %}
+<script src="https://gist.github.com/StefanIvemo/d5c4b2733e1b499eb1d03c87738c4844.js"></script>
 
 ## 8. Variable loops
-
-> IMPORTANT: Variable loops are not yet implemented in any available Bicep release as of today(2021-04-02). But if you want to try it out the code ([PR #2077](https://github.com/Azure/bicep/pull/2077)) has been merged to the `main` branch and can be tested using a nightly build. You can install a nightly build by following this [guide](https://github.com/Azure/bicep/blob/main/docs/installing-nightly.md).
 
 This is my favorite kind of loop in templates, with variable loops we can do a lot of cool stuff. I find them very useful when I want to construct an array of objects that I can use for a resource property. I prefer doing this over property loops that we looked at above, because I like that the template becomes a lot cleaner when I don't stick to much logic into the resource declaration it self.
 
 Example variable loop:
-{% highlight bicep %}
-var massiveBiceps = [
-    'Arnold'
-    'Sylvester'
-    'Dolph'
-]
-
-var biggestBicepsTopList = [for (name, i) in massiveBiceps: {
-    position: i+1
-    contender: name
-}]
-
-{% endhighlight %}
+<script src="https://gist.github.com/StefanIvemo/c6a6f53434a0b65ead5aef2f1d0265f3.js"></script>
 
 Let's look at an Azure Firewall deployment where the number of public IPs is based on the integer parameter `publicIpCount`. The `ipConfigurations` array property in an Azure Firewall consists of one object per IP configuration, where the first IP configuration is referencing both the resourceId to the `AzureFirewallSubnet` in our Virtual Network, and also the resourceId to the first public IP address assigned to the Firewall. For all additional public IPs I want to add to my Firewall I only specify the public IP resourceId in the array object. The `ipConfigurations` array will look like this:
 
-{% highlight bicep %}
-ipConfigurations: [
-{
-  name: 'ipconfig1'
-  properties: {
-    publicIPAddress: {
-      id: '/subscriptions/<subscriptionId>/resourceGroups/<resourcegroup>/providers/Microsoft.Network/publicIPAddresses/steffes-fw-publicip-1'
-    }
-    subnet: {
-      id: '/subscriptions/<subscriptionId>/resourceGroups/<resourcegroup>/providers/Microsoft.Network/virtualNetworks/steffes-vnet/subnets/AzureFirewallSubnet'
-    }
-  }
-}
-{
-  name: 'ipconfig2'
-  properties: {
-    publicIPAddress: {
-      id: '/subscriptions/<subscriptionId>/resourceGroups/<resourcegroup>/providers/Microsoft.Network/publicIPAddresses/steffes-fw-publicip-2'
-    }
-  }
-}
-]
-
-{% endhighlight %}
+<script src="https://gist.github.com/StefanIvemo/4b31f965de9086dd6d4a77109c2428f6.js"></script>
 
 Here's the full example of an Azure Firewall deployment using variable loops (existing VNet):
-{% highlight bicep %}
-param fwName string = 'steffes-fw'
-param subnetId string
-param publicIpCount int = 5
-param location string = resourceGroup().location
-
-resource publicIPs 'Microsoft.Network/publicIPAddresses@2020-08-01' = [for i in range(1, publicIpCount): {
-  name: '${fwName}-publicip-${i}'
-  location: location
-  sku: {
-    name: 'Standard'
-  }
-  properties: {
-    publicIPAllocationMethod: 'Static'
-  }
-}]
-
-var fwIpConfigurations = [for i in range(1, publicIpCount): {
-  name: '${fwName}-vnetIPConf-${i}'
-  properties: {
-    publicIPAddress: {
-      id: publicIPs[i-1].id
-    }
-    subnet: i == 1 ? {
-      id: subnetId
-    } : json('null')
-  }
-}]
-
-resource firewall 'Microsoft.Network/azureFirewalls@2020-06-01' = {
-  name: fwName
-  location: location
-  properties: {
-    sku: {
-      name: 'AZFW_VNet'
-      tier: 'Standard'
-    }
-    ipConfigurations: fwIpConfigurations
-  }
-}
-
-{% endhighlight %}
+<script src="https://gist.github.com/StefanIvemo/0d6635bc21256aedb300981c0a7eacdd.js"></script>
 
 # Summary
 
